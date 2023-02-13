@@ -1,0 +1,16 @@
+.element__button {
+    background-image: url(../../../images/Vector-Stroke.svg);
+    background-size: cover;
+    width: 22px;
+    height: 19px;
+    border: none;
+}
+
+.element__button:hover {
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+.element__button:active {
+    background-image: url(../../../images/vector-stroke-dark.svg);
+}

@@ -1,0 +1,11 @@
+.info__cell-button {
+    box-sizing: border-box;
+    width: 24px;
+    height: 24px;
+    border: 1px solid #FFFFFF;
+    background-color: #000000;
+}
+
+.info__cell-button:hover {
+    cursor: pointer;
+}
