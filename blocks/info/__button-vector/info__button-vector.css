@@ -2,3 +2,11 @@
     height: 10px;
     width: 10px;
 }
+
+@media screen and (max-width: 425px) {
+.info__button-vector {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+}
+}

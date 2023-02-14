@@ -9,3 +9,9 @@
     display: none;
     z-index: 1;
 }
+
+@media screen and (max-width: 425px) {
+    .popup {
+        width: 88.125%;
+    }
+}

@@ -3,3 +3,12 @@
     border-radius: 10px;
     background: #FFFFFF;
 }
+
+@media screen and (max-width: 425px) {
+    .element {
+        margin-bottom: 20px;
+    }
+    .element:last-child{
+        margin-bottom: 0px;
+    }
+}

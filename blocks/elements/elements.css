@@ -7,3 +7,11 @@
     grid-gap: 20px 17px;
     padding-bottom: 66px;
 }
+
+@media screen and (max-width: 425px) {
+.elements {
+    display: block;
+    width: 89.8%;
+    padding-bottom: 48px;
+}
+}

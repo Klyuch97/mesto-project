@@ -5,3 +5,10 @@
     align-items: center;
     margin: 0;
 }
+
+@media screen and (max-width: 425px) {
+    .profile {
+        width: 88.125%;
+        display: block;
+    }
+}

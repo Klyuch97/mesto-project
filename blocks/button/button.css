@@ -5,6 +5,7 @@
     border: 2px solid #FFFFFF;
     border-radius: 2px;
     background-color: #000000;
+    padding: 0;
 }
 
 .button:hover {
@@ -12,4 +13,10 @@
     border: 2px solid #FFFFFF;
     border-radius: 2px;
     cursor: pointer;
+}
+
+@media screen and (max-width: 425px) {
+    .button {
+        width: 100%;
+    }
 }

@@ -1,0 +1,13 @@
+.popup-container__name-text {
+    margin: 0;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    color: #000000;
+    padding-bottom: 13px;
+    border: 0;
+    height: 14px;
+    width: 100%;
+}

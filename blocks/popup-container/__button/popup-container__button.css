@@ -1,0 +1,21 @@
+.popup-container__button {
+    width: 83.25%;
+    height: 50px;
+    background: #000000;
+    border-radius: 2px;
+    border: 0;
+    padding: 0;
+}
+
+.popup-container__button:hover {
+    background: #000000;
+    opacity: 0.8;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 425px) {
+    .popup-container__button {
+        width: 84.39%;
+    }
+}

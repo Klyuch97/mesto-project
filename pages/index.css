@@ -28,3 +28,11 @@
 @import url(../blocks/popup-container/popup-container.css);
 @import url(../blocks/popup-close/popup-close.css);
 @import url(../blocks/popup-text/popup-text.css);
+@import url(../blocks/popup-container/__info/popup-container__info.css);
+@import url(../blocks/popup-container/__line/popup-container__line.css);
+@import url(../blocks/popup-container/__name-text/popup-container__name-text.css);
+@import url(../blocks/popup-container/__name/popup-container__name.css);
+@import url(../blocks/popup-container/__button-text/popup-container__button-text.css);
+@import url(../blocks/popup-container/__button/popup-container__button.css);
+@import url(../blocks/popup-container/__info-text/popup-container__info-text.css);
+@import url(../blocks/overlay/overlay.css);
