@@ -1,4 +1,3 @@
 .popup_opened{
-    display: block;
-    z-index: 1;
+    display: flex;
 }

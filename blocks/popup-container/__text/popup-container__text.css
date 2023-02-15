@@ -1,19 +1,18 @@
-.popup-text {
-    font-family: 'Inter';
+.popup-container__text {
+    font-family: 'Inter', Arial, sans-serif;
     font-style: normal;
     font-weight: 900;
     font-size: 24px;
     line-height: 29px;
     color: #000000;
-    margin: 0;
-    padding-top: 34px;
-    padding-bottom: 54px;
     width: 83.25%;
+    margin: 0;
+    padding-bottom: 54px;
+    padding-top: 34px;
 }
 
-@media screen and (max-width: 425px) {
-    .popup-text {
-        width: 84.39%;
+@media screen and (max-width: 600px) {
+    .popup-container__text {
         font-size: 18px;
         line-height: 22px;
         padding-top: 25px;

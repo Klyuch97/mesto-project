@@ -1,0 +1,23 @@
+.profile__info-cell-button {
+    box-sizing: border-box;
+    width: 24px;
+    height: 24px;
+    border: 1px solid #FFFFFF;
+    background-color: #000000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile__info-cell-button:hover {
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+@media screen and (max-width: 425px) {
+    .profile__info-cell-button {
+        width: 18px;
+        height: 18px;
+        position: relative;
+    }
+}

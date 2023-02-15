@@ -1,5 +1,5 @@
 .profile {
-    width: 68.75%;
+    width: 100%;
     padding-bottom: 51px;
     display: flex;
     align-items: center;
@@ -8,7 +8,10 @@
 
 @media screen and (max-width: 425px) {
     .profile {
-        width: 88.125%;
-        display: block;
+        width: 90%;
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        padding-bottom: 36px;
     }
 }

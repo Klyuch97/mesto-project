@@ -1,12 +1,12 @@
-.info__cell {
+.profile__info-cell {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
 }
 
 @media screen and (max-width: 425px) {
-.info__cell{
-    justify-content: stretch;
-    align-items: center;
-}
+    .profile__info-cell {
+        justify-content: stretch;
+        align-items: center;
+    }
 }

@@ -1,15 +1,14 @@
 .popup-close {
+    background-image: url(../../images/Close-Icon.svg);
+    background-color: transparent;
     width: 32px;
     height: 32px;
-    font-size: 32px;
-    padding: 0;
-    margin: 0;
-    border: 0;
-    position: absolute;
-    top: -40px;
-    right: -40px;
-    background-color: transparent;
-    color: white;
+    background-size: cover;
+    position: relative;
+    z-index: 1;
+    margin-left: 470px;
+    border: none;
+    margin-bottom: 8px;
 }
 
 .popup-close:hover {
@@ -17,12 +16,12 @@
     opacity: 0.6;
 }
 
-@media screen and (max-width: 550px) {
+@media screen and (max-width: 600px) {
     .popup-close {
-        right: 0;
-        top: -36px;
         width: 20px;
         height: 20px;
-        font-size: 20px;
+        margin-left: 81%;
+        margin-bottom: 16px;
+
     }
 }

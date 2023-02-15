@@ -1,13 +1,15 @@
 .popup-container__name-text {
-    margin: 0;
-    font-family: 'Inter';
+    font-family: 'Inter', Arial, sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
     line-height: 17px;
     color: #000000;
-    padding-bottom: 13px;
-    border: 0;
+    width: 83.25%;
     height: 14px;
-    width: 100%;
+    padding: 0;
+    padding-bottom: 14px;
+    border-style: none none solid none;
+    border-color: rgba(84, 84, 84, 1) ;
+    border-width: 1px;
 }
