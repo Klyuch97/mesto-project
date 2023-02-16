@@ -9,6 +9,8 @@
     margin-left: 470px;
     border: none;
     margin-bottom: 8px;
+    padding: 0;
+    top: -38px;
 }
 
 .popup-close:hover {
@@ -20,8 +22,8 @@
     .popup-close {
         width: 20px;
         height: 20px;
-        margin-left: 81%;
-        margin-bottom: 16px;
+        margin-left: 95%;
+        top: -36px;
 
     }
 }

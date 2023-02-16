@@ -23,7 +23,8 @@
                     <div class="profile__info-cell">
                         <h1 class="profile__info-cell-text">Жак-Ив Кусто</h1>
                         <button class="profile__info-cell-button" type="button">
-                            <img src="./images/Vector1.svg" alt="Иконка карандаш" class="info__button-vector"></button>
+                            <img src="./images/Vector1.svg" alt="Иконка карандаш"
+                                class="profile__info-button-vector"></button>
                     </div>
                     <p class="profile__info-text">Исследователь океана</p>
                 </div>
@@ -31,12 +32,13 @@
                     <img src="./images/Vector+.svg" alt="Иконка карандаш" class="profile__button-vector"></button>
             </section>
             <section class="popup popup_opened">
-                <button class="popup-close" type="button"></button>
-                <form class="popup-container">
+
+                <form class="popup-container" name="popup-container">
+                    <button class="popup-close" type="button" name="popup-close"></button>
                     <h2 class="popup-container__text">Редактировать профиль</h2>
                     <input type="text" class="popup-container__name-text" placeholder="Имя">
-                    <input type="text" class="popup-container__info-text" placeholder="О себе">
-                    <button class="popup-container__button" type="button">Сохранить</button>
+                    <input type="text" class="popup-container__name-text" placeholder="О себе">
+                    <button class="popup-container__button" type="submit">Сохранить</button>
                 </form>
             </section>
             <section class="elements">

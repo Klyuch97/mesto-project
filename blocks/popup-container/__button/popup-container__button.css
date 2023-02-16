@@ -5,6 +5,7 @@
     height: 50px;
     color: white;
     margin: 48px 0 37px;
+    border: 0;
 }
 
 .popup-container__button:hover {
