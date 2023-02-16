@@ -6,12 +6,12 @@
     margin: 0;
 }
 
-@media screen and (max-width: 425px) {
+@media screen and (max-width: 1000px) {
     .profile {
-        width: 90%;
         align-items: center;
         display: flex;
         flex-direction: column;
         padding-bottom: 36px;
+        width: 90%;
     }
 }

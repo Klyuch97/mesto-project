@@ -1,7 +1,7 @@
 .profile__button {
     width: 150px;
     height: 50px;
-    margin-left: 27.72%;
+    margin-left: auto;
     border: 2px solid #FFFFFF;
     border-radius: 2px;
     background-color: #000000;
@@ -15,7 +15,7 @@
     cursor: pointer;
 }
 
-@media screen and (max-width: 425px) {
+@media screen and (max-width: 1000px) {
     .profile__button {
         width: 100%;
         margin-left: 0;

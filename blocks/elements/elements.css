@@ -8,10 +8,10 @@
     padding-bottom: 66px;
 }
 
-@media screen and (max-width: 425px) {
+@media screen and (max-width: 1000px) {
 .elements {
     display: block;
-    width: 89.8%;
+    width: 90%;
     padding-bottom: 48px;
 }
 }

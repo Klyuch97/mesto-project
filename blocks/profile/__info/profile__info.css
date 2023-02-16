@@ -6,10 +6,10 @@
     align-items: flex-start;
 }
 
-@media screen and (max-width: 425px) {
+@media screen and (max-width: 1000px) {
     .profile__info {
         display: block;
-        width: 100%;
+        width: 76.95%;
         padding: 22.25px 0 36px;
     }
 }
