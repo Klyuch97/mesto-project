@@ -1,4 +1,4 @@
-.popup-container__text {
+.form__text {
     font-family: 'Inter', Arial, sans-serif;
     font-style: normal;
     font-weight: 900;
@@ -8,10 +8,11 @@
     width: 83.25%;
     margin: 0;
     padding-bottom: 54px;
+    padding-top: 34px;
 }
 
 @media screen and (max-width: 600px) {
-    .popup-container__text {
+    .form__text {
         font-size: 18px;
         line-height: 22px;
         padding-top: 25px;
