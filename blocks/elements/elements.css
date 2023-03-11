@@ -4,14 +4,14 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(282px, 1fr));
     grid-template-rows: auto auto;
-    grid-gap: 20px 17px;
+    gap: 20px 17px;
     padding-bottom: 66px;
 }
 
 @media screen and (max-width: 1000px) {
-.elements {
-    display: block;
-    width: 90%;
-    padding-bottom: 48px;
-}
+    .elements {
+        display: block;
+        width: 90%;
+        padding-bottom: 48px;
+    }
 }

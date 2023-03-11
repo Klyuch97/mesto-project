@@ -42,67 +42,33 @@
         </div>
       </section>
       <section class="elements">
-        <div class="element">
-          <img src="./images/karachaevsk.jpg" alt="Карачаевск" class="element__image">
-          <div class="element__block">
-            <h2 class="element__text">Карачаевск</h2>
-            <button class="element__button" type="button"></button>
-          </div>
-        </div>
-        <div class=" element">
-          <img src="./images/albrus.jpg" alt="Эльбрус" class="element__image">
-          <div class="element__block">
-            <h2 class="element__text">Гора Эльбрус</h2>
-            <button class="element__button" type="button"></button>
-          </div>
-        </div>
 
-        <div class="element">
-          <img src="./images/dombai.jpg" alt="Домбай" class="element__image">
-          <div class="element__block">
-            <h2 class="element__text">Домбай</h2>
-            <button class="element__button" type="button"></button>
-          </div>
-        </div>
-
-        <div class="element">
-          <img src="./images/albrus.jpg" alt="Эльбрус" class="element__image">
-          <div class="element__block">
-            <h2 class="element__text">Гора Эльбрус</h2>
-            <button class="element__button" type="button"></button>
-          </div>
-        </div>
-
-        <div class="element">
-          <img src="./images/dombai.jpg" alt="Домбай" class="element__image">
-          <div class="element__block">
-            <h2 class="element__text">Домбай</h2>
-            <button class="element__button" type="button"></button>
-          </div>
-        </div>
-
-        <div class="element">
-          <img src="./images/karachaevsk.jpg" alt="Карачаевск" class="element__image">
-          <div class="element__block">
-            <h2 class="element__text">Карачаево-Черкессия</h2>
-            <button class="element__button" type="button"></button>
-          </div>
-        </div>
       </section>
+
+      <template id="templateElements">
+        <div class="element">
+          <button class="element__button-trash" type="button"></button>
+          <img src="" alt="" class="element__image">
+          <div class="element__block">
+            <h2 class="element__text"></h2>
+            <button class="element__button" type="button"></button>
+          </div>
+        </div>
+      </template>
+
+
 
       <section class="popup popup_add_image">
         <div class="popup__container">
           <button class="popup__close popup__close_add_image" type="button" name="popup__close  "></button>
-          <form class="form" name="form">
+          <form class="form form_add-image" name="form">
             <h2 class="form__text">Новое место</h2>
-            <input type="text" class="form__name-text" placeholder="Название" name="form__name-text">
-            <input type="text" class="form__name-text" placeholder="Ссылка на картинку" name="form__name-text">
+            <input type="text" class="form__name-text form_name-image" placeholder="Название" name="form__name-text">
+            <input type="text" class="form__name-text form_name-image" placeholder="Ссылка на картинку" name="form__name-text">
             <button class="form__button" type="submit">Создать</button>
           </form>
         </div>
       </section>
-
-
     </main>
     <footer class="footer">
       <p class="footer__text">© 2020 Mesto Russia</p>

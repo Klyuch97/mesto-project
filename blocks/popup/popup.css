@@ -10,7 +10,7 @@
     align-items: center;
     flex-direction: column;
     opacity: 0;
-    transition: visibility 0.8s, opacity 0.8s linear;
+    transition: visibility 0.4s, opacity 0.4s linear;
 }
 
 .popup::before {
