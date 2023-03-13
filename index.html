@@ -48,15 +48,13 @@
       <template id="templateElements">
         <div class="element">
           <button class="element__button-trash" type="button"></button>
-          <img src="" alt="" class="element__image">
+          <img src="" alt="Картинка" class="element__image">
           <div class="element__block">
             <h2 class="element__text"></h2>
             <button class="element__button" type="button"></button>
           </div>
         </div>
       </template>
-
-
 
       <section class="popup popup_add_image">
         <div class="popup__container">
@@ -67,6 +65,14 @@
             <input type="text" class="form__name-text form_name-image" placeholder="Ссылка на картинку" name="form__name-text">
             <button class="form__button" type="submit">Создать</button>
           </form>
+        </div>
+      </section>
+
+      <section class="popup popup_open-card ">
+        <div class="popup__container-image">
+          <button class="popup__close popup__close_image" type="button" name="popup__close"></button>
+          <img class="popup__image" src="" alt="Картинка Увеличенная">
+          <h2 class="popup__text-image"></h2>
         </div>
       </section>
     </main>

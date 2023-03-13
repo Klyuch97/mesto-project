@@ -1,0 +1,17 @@
+.popup__text-image {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  color: #FFFFFF;
+  grid-row-start: 3;
+  z-index: 1;
+  margin: 0;
+}
+
+@media screen and (max-width: 600px) {
+  .popup__text-image {
+      padding-top: 10px;
+  }
+}

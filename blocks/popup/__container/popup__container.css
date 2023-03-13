@@ -3,6 +3,7 @@
     grid-template-columns: 430px 32px;
     grid-template-rows: 32px auto;
     grid-gap: 8px;
+    z-index: 1;
 }
 
 @media screen and (max-width: 600px) {

@@ -1,0 +1,15 @@
+.popup__container-image{
+  display: grid;
+    grid-template-columns: auto 32px;
+    grid-template-rows: 32px auto auto;
+    grid-gap: 8px;
+    z-index: 1;
+}
+
+@media screen and (max-width: 600px) {
+  .popup__container-image {
+      display: flex;
+      flex-direction: column;
+      grid-gap: 0;
+  }
+}
