@@ -20,9 +20,38 @@ const popupOpenCard = document.querySelector('.popup_open-card');
 const popupImage = popupOpenCard.querySelector('.popup__image');
 const popupTextImage = popupOpenCard.querySelector('.popup__text-image');
 
+
+
 function openPopup(popup) {
   popup.classList.add('popup_opened');
+  document.addEventListener('keydown', closePressEscape);
+  popup.addEventListener('click', closeClickOverlay);
 }
+
+function closePopup(popup) {
+  popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closePressEscape);
+  popup.removeEventListener('click', closeClickOverlay);
+}
+
+function closePressEscape(evt) {
+  if (evt.key === 'Escape') {
+    let popupOpen = document.querySelector('.popup_opened');
+    if (popupOpen) {
+      popupOpen.classList.remove('popup_opened');
+    }
+  }
+}
+
+function closeClickOverlay(evt) {
+  if (evt.target === evt.currentTarget) {
+    let popupOpen = document.querySelector('.popup_opened');
+    if (popupOpen) {
+      popupOpen.classList.remove('popup_opened');
+    }
+  }
+}
+
 buttonOpenEditProfilePopup.addEventListener('click', function () {
   openPopup(popupEdifProfile);
   nameInput.value = nameProfile.textContent
@@ -34,13 +63,10 @@ buttonOpenAddCardPopup.addEventListener('click', function () {
   openPopup(popupAddImage);
 });
 
-function closePopup(popup) {
-  popup.classList.remove('popup_opened');
-}
-
 buttonCloseEditProfilePopup.addEventListener('click', function () {
   closePopup(popupEdifProfile);
 });
+
 buttonCloseAddCardPopup.addEventListener('click', function () {
   closePopup(popupAddImage);
 });
@@ -66,7 +92,7 @@ function createCard(nameInputImage, linkInputImage) {
   const elementLink = elements.querySelector('.element__image');
   elementText.textContent = nameInputImage;
   elementLink.src = linkInputImage;
-  elementLink.alt= linkInputImage;
+  elementLink.alt = linkInputImage;
 
   elements.querySelector('.element__button').addEventListener('click', function (event) {
     event.target.classList.toggle('element__button_active');
