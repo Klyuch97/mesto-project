@@ -12,6 +12,8 @@
     border-style: none none solid none;
     border-color: rgba(84, 84, 84, 1);
     border-width: 1px;
+    overflow: hidden;
+    outline: 0 !important;
 }
 
 .form__name-text:nth-of-type(1) {

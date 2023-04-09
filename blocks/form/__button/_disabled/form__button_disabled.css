@@ -1,31 +1,17 @@
-.form__button {
+.form__button_disabled {
   width: 83.25%;
   background: #000000;
   border-radius: 2px;
   height: 50px;
-  color: white;
   margin: 48px 0 37px;
   border: 0;
   padding: 0;
+  opacity: 0.2;
   font-family: 'Inter';
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
   line-height: 22px;
   text-align: center;
+  color: white;
 }
-
-.form__button:hover {
-  opacity: 0.8;
-  cursor: pointer;
-}
-
-@media screen and (max-width: 600px) {
-  .form__button {
-    margin: 45px 0 25px;
-    height: 46px;
-    font-size: 14px;
-    line-height: 17px;
-  }
-}
-
