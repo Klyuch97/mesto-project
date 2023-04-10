@@ -1,8 +1,13 @@
 .form__name-text_type_error {
-  border-bottom-color: red;
+  border-bottom-color: #FF0000;
 }
 
 
 .form__input-error_active{
-  color: red;
+  color:#FF0000;
+  ;
+  font-family: 'Inter', Arial, sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
 }
