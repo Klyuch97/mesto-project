@@ -14,21 +14,21 @@
 <body class="main-page">
   <div class="page">
     <header class="header">
-      <img src="../src/images/logo-mesto.svg" alt="Логотип" class="header__logo">
+      <img src="<%=require('../src/images/logo-mesto.svg')%>" alt="Логотип" class="header__logo">
     </header>
     <main class="content">
       <section class="profile">
-        <img src="../src/images//kusto.jpg" alt="Аватар" class="profile__image">
+        <img src="<%=require('../src/images//kusto.jpg')%>" alt="Аватар" class="profile__image">
         <div class="profile__info">
           <div class="profile__info-cell">
             <h1 class="profile__info-cell-text">Жак-Ив Кусто</h1>
             <button class="profile__info-cell-button" type="button">
-              <img src="../src/images/Vector1.svg" alt="Иконка карандаш" class="profile__info-button-vector"></button>
+              <img src="<%=require('../src/images/Vector1.svg')%>" alt="Иконка карандаш" class="profile__info-button-vector"></button>
           </div>
           <p class="profile__info-text">Исследователь океана</p>
         </div>
         <button class="profile__button" type="button">
-          <img src="../src/images//Vector+.svg" alt="Иконка карандаш" class="profile__button-vector"></button>
+          <img src="<%=require('../src/images//Vector+.svg')%>" alt="Иконка Плюс" class="profile__button-vector"></button>
       </section>
       <section class="popup popup_edit-profile ">
         <div class="popup__container">

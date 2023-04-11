@@ -1,8 +1,15 @@
-import '../pages/index.css'
+import '../src/index.css';
 
 import { initialCards } from './components/constants.js';
-import { openPopup, closePopup, closeClickOverlay, closePressEscape, submitEditProfileForm } from "./components/modal.js";
-import { showInputError, hideInputError, isValid, toggleButtonState, setEventListeners, enableValidation, hasInvalidInput } from "./components/validate.js";
+
+import { openPopup, closePopup, closeClickOverlay, closePressEscape, submitEditProfileForm }
+  from "./components/modal.js";
+
+import {
+  showInputError, hideInputError, isValid, toggleButtonState, setEventListeners,
+  enableValidation, hasInvalidInput
+} from "./components/validate.js";
+
 import { createCard, addCard } from './components/card.js';
 
 const popup = document.querySelector('.popup');
