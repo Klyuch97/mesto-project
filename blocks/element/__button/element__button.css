@@ -1,5 +1,5 @@
 .element__button {
-    background-image: url(../../../images/Vector-Stroke.svg);
+    background-image: url(../../../src/images/Vector-Stroke.svg);
     background-size: cover;
     width: 22px;
     height: 19px;
@@ -13,5 +13,5 @@
 }
 
 .element__button:active {
-    background-image: url(../../../images/vector-stroke-dark.svg);
+    background-image: url(../../../src/images/vector-stroke-dark.svg);
 }

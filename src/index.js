@@ -1,4 +1,4 @@
-//import '../pages/index.css'
+import '../pages/index.css'
 
 import { initialCards } from './components/constants.js';
 import { openPopup, closePopup, closeClickOverlay, closePressEscape, submitEditProfileForm } from "./components/modal.js";

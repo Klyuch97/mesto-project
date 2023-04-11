@@ -2,7 +2,7 @@
   "name": "mesto-project",
   "version": "1.0.0",
   "description": "* Описание\r * Figma\r * Картинки\r * Ссылка на сайт",
-  "main": "constants.js",
+  "main": "index.js",
   "scripts": {
     "build": "webpack --mode production",
     "dev": "webpack serve"
