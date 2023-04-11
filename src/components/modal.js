@@ -1,3 +1,9 @@
+const nameInput = document.querySelector('.form__name-text');
+const jobInput = document.querySelector('input:nth-of-type(2)');
+const nameProfile = document.querySelector('.profile__info-cell-text');
+const job = document.querySelector('.profile__info-text');
+const popupEdifProfile = document.querySelector('.popup_edit-profile');
+
 export function openPopup(popup) {
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', closePressEscape);
@@ -13,27 +19,19 @@ export function closePressEscape(evt) {
   if (evt.key === 'Escape') {
     const popupOpen = document.querySelector('.popup_opened');
     if (popupOpen) {
-      popupOpen.classList.remove('popup_opened');
+      closePopup(popupOpen);
     }
   }
 }
 
 export function closeClickOverlay(evt) {
   if (evt.target === evt.currentTarget) {
-    const popupOpen = document.querySelector('.popup_opened');
-    if (popupOpen) {
-      popupOpen.classList.remove('popup_opened');
-    }
+    closePopup(evt.target);
   }
 }
 
 export function submitEditProfileForm(evt) {
   evt.preventDefault();
-  const nameInput = document.querySelector('.form__name-text');
-  const jobInput = document.querySelector('input:nth-of-type(2)');
-  const nameProfile = document.querySelector('.profile__info-cell-text');
-  const job = document.querySelector('.profile__info-text');
-  const popupEdifProfile = document.querySelector('.popup_edit-profile');
   const inputValue = nameInput.value;
   const jobInputValue = jobInput.value;
   nameProfile.textContent = inputValue;

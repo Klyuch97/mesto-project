@@ -1,3 +1,11 @@
+
+const popupOpenCard = document.querySelector('.popup_open-card');
+const popupTextImage = popupOpenCard.querySelector('.popup__text-image');
+const popupImage = popupOpenCard.querySelector('.popup__image');
+const formAddImage = document.querySelector('.form_add-image');
+const nameInputImage = formAddImage.querySelector('.form_name-image');
+const linkInputImage = formAddImage.querySelector('input:nth-of-type(2)');
+
 export function createCard(nameInputImage, linkInputImage) {
   const templateElements = document.querySelector('#templateElements').content;
   const elements = templateElements.cloneNode(true);
@@ -13,13 +21,10 @@ export function createCard(nameInputImage, linkInputImage) {
 
   elements.querySelector('.element__image').addEventListener('click', function (evt) {
     evt.preventDefault();
-    const popupOpenCard = document.querySelector('.popup_open-card');
-    const popupTextImage = popupOpenCard.querySelector('.popup__text-image');
-    const popupImage = popupOpenCard.querySelector('.popup__image');
     popupTextImage.textContent = evt.target.nextElementSibling.firstElementChild.textContent;
     popupImage.src = evt.target.src;
     popupImage.alt = evt.target.alt;
-    openPopup(popupOpenCard);
+    openPopup(popupOpenCard); // не понимаю,почему не открывается попап, когда было в Index.js все работало
   })
 
   const deleteButtom = elements.querySelector('.element__button-trash');
@@ -34,7 +39,7 @@ export function createCard(nameInputImage, linkInputImage) {
 export function addCard(evt) {
   evt.preventDefault();
   const card = createCard(nameInputImage.value, linkInputImage.value);
-  elementList.prepend(card);
+  elementList.prepend(card);// не понимаю,почему не добавляется карточка, когда было в Index.js все работало
   closePopup(popupAddImage);
 }
 
