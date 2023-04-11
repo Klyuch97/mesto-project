@@ -10,7 +10,7 @@ import {
   enableValidation, hasInvalidInput
 } from "./components/validate.js";
 
-import { createCard, addCard } from './components/card.js';
+import { createCard,addCard } from './components/card.js';
 
 const popup = document.querySelector('.popup');
 const buttonOpenEditProfilePopup = document.querySelector('.profile__info-cell-button');
@@ -66,5 +66,6 @@ initialCards.forEach(function (element) {
 })
 
 formAddImage.addEventListener('submit', addCard);
+
 
 

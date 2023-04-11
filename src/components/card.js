@@ -1,10 +1,12 @@
-import { openPopup } from "./modal.js";
+import { openPopup,closePopup } from "./modal.js";
 const popupOpenCard = document.querySelector('.popup_open-card');
 const popupTextImage = popupOpenCard.querySelector('.popup__text-image');
 const popupImage = popupOpenCard.querySelector('.popup__image');
 const formAddImage = document.querySelector('.form_add-image');
 const nameInputImage = formAddImage.querySelector('.form_name-image');
 const linkInputImage = formAddImage.querySelector('input:nth-of-type(2)');
+const elementList = document.querySelector('.elements');
+const popupAddImage = document.querySelector('.popup_add_image');
 
 export function createCard(nameInputImage, linkInputImage) {
   const templateElements = document.querySelector('#templateElements').content;
