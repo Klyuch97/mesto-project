@@ -1,4 +1,4 @@
-import { openPopup,closePopup } from "./modal.js";
+import { openPopup, closePopup } from "./modal.js";
 const popupOpenCard = document.querySelector('.popup_open-card');
 const popupTextImage = popupOpenCard.querySelector('.popup__text-image');
 const popupImage = popupOpenCard.querySelector('.popup__image');
@@ -41,7 +41,7 @@ export function createCard(nameInputImage, linkInputImage) {
 export function addCard(evt) {
   evt.preventDefault();
   const card = createCard(nameInputImage.value, linkInputImage.value);
-  elementList.prepend(card);// не понимаю,почему не добавляется карточка, когда было в Index.js все работало
+  elementList.prepend(card);
   closePopup(popupAddImage);
 }
 

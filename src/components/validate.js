@@ -1,5 +1,5 @@
 
-// Функция, которая добавляет класс с ошибкой
+//Функция, которая добавляет класс с ошибкой
 export const showInputError = (formElement, formInput, errorMessage) => {
   const formError = formElement.querySelector(`.${formInput.id}-error`);
   formInput.classList.add('form__name-text_type_error');
@@ -33,9 +33,9 @@ export const isValid = (formElement, formInput) => {
   }
 };
 
-export const toggleButtonState = (inputList, buttonElement) => {
+export const toggleButtonState = (inputList, buttonElement,settings) => {
   // Если есть хотя бы один невалидный инпут
-  if (hasInvalidInput(inputList)) {
+  if (hasInvalidInput(inputList,settings)) {
     // сделай кнопку неактивной
     buttonElement.disabled = true;
     buttonElement.classList.add('form__button_disabled');
@@ -46,39 +46,38 @@ export const toggleButtonState = (inputList, buttonElement) => {
   }
 };
 
-export const setEventListeners = (formElement) => {
+export const setEventListeners = (formElement, settings) => {
 
   // Находим все поля внутри формы,
-  const inputList = Array.from(formElement.querySelectorAll('.form__name-text'));
-  const buttonElement = formElement.querySelector('.form__button');
-  toggleButtonState(inputList, buttonElement);
+  const inputList = Array.from(formElement.querySelectorAll(settings.formNameText));
+  const buttonElement = formElement.querySelector(settings.formButton);
+  toggleButtonState(inputList, buttonElement,settings);
   // Обойдём все элементы полученной коллекции
-  inputList.forEach((formInput) => {
+  inputList.forEach((formInput,settings) => {
     // каждому полю добавим обработчик события input
     formInput.addEventListener('input', () => {
       // Внутри колбэка вызовем isValid,
       // передав ей форму и проверяемый элемент
-      isValid(formElement, formInput);
-      toggleButtonState(inputList, buttonElement);
+      isValid(formElement, formInput,settings);
+      toggleButtonState(inputList, buttonElement,settings);
     });
   });
 };
 
-export const enableValidation = () => {
+export const enableValidation = (settings) => {
   // Найдём все формы с указанным классом в DOM,
   // сделаем из них массив методом Array.from
-  const formList = Array.from(document.querySelectorAll('.form'));
+  const formList = Array.from(document.querySelectorAll(settings.form));
 
   // Переберём полученную коллекцию
   formList.forEach((formElement) => {
     // Для каждой формы вызовем функцию setEventListeners,
     // передав ей элемент формы
-    setEventListeners(formElement);
+    setEventListeners(formElement,settings);
   });
 };
 
 // Вызовем функцию
-
 
 export const hasInvalidInput = (inputList) => {
   // проходим по этому массиву методом some
@@ -86,7 +85,9 @@ export const hasInvalidInput = (inputList) => {
     // Если поле не валидно, колбэк вернёт true
     // Обход массива прекратится и вся функция
     // hasInvalidInput вернёт true
-
     return !inputElement.validity.valid;
   })
 };
+
+
+

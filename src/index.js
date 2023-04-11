@@ -1,17 +1,12 @@
 import '../src/index.css';
-
 import { initialCards } from './components/constants.js';
-
 import { openPopup, closePopup, closeClickOverlay, closePressEscape, submitEditProfileForm }
   from "./components/modal.js";
-
 import {
   showInputError, hideInputError, isValid, toggleButtonState, setEventListeners,
   enableValidation, hasInvalidInput
 } from "./components/validate.js";
-
-import { createCard,addCard } from './components/card.js';
-
+import { createCard, addCard } from './components/card.js';
 const popup = document.querySelector('.popup');
 const buttonOpenEditProfilePopup = document.querySelector('.profile__info-cell-button');
 const buttonCloseEditProfilePopup = document.querySelector('.popup__close');
@@ -29,13 +24,18 @@ const linkInputImage = formAddImage.querySelector('input:nth-of-type(2)');
 const nameProfile = document.querySelector('.profile__info-cell-text');
 const job = document.querySelector('.profile__info-text');
 const buttonCloseImagePopup = document.querySelector('.popup__close_image');
-//const popupOpenCard = document.querySelector('.popup_open-card');
-//const popupImage = popupOpenCard.querySelector('.popup__image');
-//const popupTextImage = popupOpenCard.querySelector('.popup__text-image');
 const formElement = document.querySelector('.form');
 
-enableValidation();
 
+const settings = {
+  form: '.form',
+  formNameText: '.form__name-text',
+  formButton: '.form__button',
+};
+//  из-за чего ошибка в консоли, понять не могу, я так понимаю,наверное, в путях, но все делал по тренажеру, 
+//  подключал npm и weppack
+
+enableValidation(settings);
 
 buttonOpenEditProfilePopup.addEventListener('click', function () {
   openPopup(popupEdifProfile);
@@ -46,6 +46,7 @@ buttonOpenEditProfilePopup.addEventListener('click', function () {
 buttonOpenAddCardPopup.addEventListener('click', function () {
   formAddImage.reset();
   openPopup(popupAddImage);
+  setEventListeners(popupAddImage, settings);
 });
 
 // находим все крестики проекта по универсальному селектору
