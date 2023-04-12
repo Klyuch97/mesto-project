@@ -1,22 +1,30 @@
+export const settings = {
+  form: '.form',
+  formNameText: '.form__name-text',
+  formButton: '.form__button',
+  formNameTextTypeError: '.form__name-text_type_error',
+  formInputErrorActive: '.form__input-error_active',
+  formButtonDisabled: '.form__button_disabled'
+};
 
 //Функция, которая добавляет класс с ошибкой
-export const showInputError = (formElement, formInput, errorMessage) => {
+export const showInputError = (formElement, formInput, errorMessage,settings) => {
   const formError = formElement.querySelector(`.${formInput.id}-error`);
-  formInput.classList.add('form__name-text_type_error');
+  formInput.classList.add(settings.formNameTextTypeError);
   formError.textContent = errorMessage;
-  formError.classList.add('form__input-error_active');
+  formError.classList.add(settings.formInputErrorActive);
 };
 
 // Функция, которая удаляет класс с ошибкой
-export const hideInputError = (formElement, formInput) => {
+export const hideInputError = (formElement, formInput,settings) => {
   const formError = formElement.querySelector(`.${formInput.id}-error`);
-  formInput.classList.remove('form__name-text_type_error');
-  formError.classList.remove('form__input-error_active');
+  formInput.classList.remove(settings.formNameTextTypeError);
+  formError.classList.remove(settings.formInputErrorActive);
   formError.textContent = '';
 };
 
 // Функция, которая проверяет валидность поля
-export const isValid = (formElement, formInput) => {
+export const isValid = (formElement, formInput,settings) => {
   if (formInput.validity.patternMismatch) {
     // данные атрибута доступны у элемента инпута через ключевое слово dataset.
 
@@ -26,10 +34,10 @@ export const isValid = (formElement, formInput) => {
   }
   if (!formInput.validity.valid) {
     // Если поле не проходит валидацию, покажем ошибку
-    showInputError(formElement, formInput, formInput.validationMessage);
+    showInputError(formElement, formInput, formInput.validationMessage,settings);
   } else {
     // Если проходит, скроем
-    hideInputError(formElement, formInput);
+    hideInputError(formElement, formInput,settings);
   }
 };
 
@@ -38,11 +46,11 @@ export const toggleButtonState = (inputList, buttonElement,settings) => {
   if (hasInvalidInput(inputList,settings)) {
     // сделай кнопку неактивной
     buttonElement.disabled = true;
-    buttonElement.classList.add('form__button_disabled');
+    buttonElement.classList.add(settings.formButtonDisabled);
   } else {
     // иначе сделай кнопку активной
     buttonElement.disabled = false;
-    buttonElement.classList.remove('form__button_disabled');
+    buttonElement.classList.remove(settings.formButtonDisabled);
   }
 };
 
@@ -51,15 +59,15 @@ export const setEventListeners = (formElement, settings) => {
   // Находим все поля внутри формы,
   const inputList = Array.from(formElement.querySelectorAll(settings.formNameText));
   const buttonElement = formElement.querySelector(settings.formButton);
-  toggleButtonState(inputList, buttonElement,settings);
+  toggleButtonState(inputList, buttonElement, settings);
   // Обойдём все элементы полученной коллекции
   inputList.forEach((formInput,settings) => {
     // каждому полю добавим обработчик события input
     formInput.addEventListener('input', () => {
       // Внутри колбэка вызовем isValid,
       // передав ей форму и проверяемый элемент
-      isValid(formElement, formInput,settings);
-      toggleButtonState(inputList, buttonElement,settings);
+      isValid(formElement, formInput, settings);
+      toggleButtonState(inputList, buttonElement, settings);
     });
   });
 };
@@ -73,7 +81,7 @@ export const enableValidation = (settings) => {
   formList.forEach((formElement) => {
     // Для каждой формы вызовем функцию setEventListeners,
     // передав ей элемент формы
-    setEventListeners(formElement,settings);
+    setEventListeners(formElement, settings);
   });
 };
 

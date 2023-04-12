@@ -4,7 +4,7 @@ import { openPopup, closePopup, closeClickOverlay, closePressEscape, submitEditP
   from "./components/modal.js";
 import {
   showInputError, hideInputError, isValid, toggleButtonState, setEventListeners,
-  enableValidation, hasInvalidInput
+  enableValidation, hasInvalidInput, settings
 } from "./components/validate.js";
 import { createCard, addCard } from './components/card.js';
 const popup = document.querySelector('.popup');
@@ -27,26 +27,24 @@ const buttonCloseImagePopup = document.querySelector('.popup__close_image');
 const formElement = document.querySelector('.form');
 
 
-const settings = {
-  form: '.form',
-  formNameText: '.form__name-text',
-  formButton: '.form__button',
-};
-//  из-за чего ошибка в консоли, понять не могу, я так понимаю,наверное, в путях, но все делал по тренажеру, 
-//  подключал npm и weppack
-
 enableValidation(settings);
+
+function toggleButton() {
+  const buttonElementCreate = document.querySelector('.form__button__create');
+  buttonElementCreate.disabled = true;
+  buttonElementCreate.classList.add('form__button_disabled');
+}
 
 buttonOpenEditProfilePopup.addEventListener('click', function () {
   openPopup(popupEdifProfile);
-  nameInput.value = nameProfile.textContent
-  jobInput.value = job.textContent
+  nameInput.value = nameProfile.textContent;
+  jobInput.value = job.textContent;
 });
 
 buttonOpenAddCardPopup.addEventListener('click', function () {
   formAddImage.reset();
   openPopup(popupAddImage);
-  setEventListeners(popupAddImage, settings);
+  toggleButton();
 });
 
 // находим все крестики проекта по универсальному селектору
