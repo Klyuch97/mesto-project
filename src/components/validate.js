@@ -2,9 +2,9 @@ export const settings = {
   form: '.form',
   formNameText: '.form__name-text',
   formButton: '.form__button',
-  formNameTextTypeError: '.form__name-text_type_error',
-  formInputErrorActive: '.form__input-error_active',
-  formButtonDisabled: '.form__button_disabled'
+  formNameTextTypeError: 'form__name-text_type_error',
+  formInputErrorActive: 'form__input-error_active',
+  formButtonDisabled: 'form__button_disabled',
 };
 
 //Функция, которая добавляет класс с ошибкой
@@ -61,13 +61,14 @@ export const setEventListeners = (formElement, settings) => {
   const buttonElement = formElement.querySelector(settings.formButton);
   toggleButtonState(inputList, buttonElement, settings);
   // Обойдём все элементы полученной коллекции
-  inputList.forEach((formInput,settings) => {
+  inputList.forEach((formInput) => {
     // каждому полю добавим обработчик события input
     formInput.addEventListener('input', () => {
       // Внутри колбэка вызовем isValid,
       // передав ей форму и проверяемый элемент
       isValid(formElement, formInput, settings);
       toggleButtonState(inputList, buttonElement, settings);
+
     });
   });
 };
@@ -87,9 +88,9 @@ export const enableValidation = (settings) => {
 
 // Вызовем функцию
 
-export const hasInvalidInput = (inputList) => {
+export const hasInvalidInput = (inputList,settings) => {
   // проходим по этому массиву методом some
-  return inputList.some((inputElement) => {
+  return inputList.some((inputElement,settings) => {
     // Если поле не валидно, колбэк вернёт true
     // Обход массива прекратится и вся функция
     // hasInvalidInput вернёт true

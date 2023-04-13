@@ -29,10 +29,10 @@ const formElement = document.querySelector('.form');
 
 enableValidation(settings);
 
-function toggleButton() {
+function toggleButton(settings) {
   const buttonElementCreate = document.querySelector('.form__button__create');
   buttonElementCreate.disabled = true;
-  buttonElementCreate.classList.add('form__button_disabled');
+  buttonElementCreate.classList.add(settings.formButtonDisabled);
 }
 
 buttonOpenEditProfilePopup.addEventListener('click', function () {
@@ -44,7 +44,7 @@ buttonOpenEditProfilePopup.addEventListener('click', function () {
 buttonOpenAddCardPopup.addEventListener('click', function () {
   formAddImage.reset();
   openPopup(popupAddImage);
-  toggleButton();
+  toggleButton(settings);
 });
 
 // находим все крестики проекта по универсальному селектору
