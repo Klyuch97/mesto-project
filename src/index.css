@@ -38,3 +38,4 @@
 @import url(../blocks/popup/__text-image/popup__text-image.css);
 @import url(../blocks/form/__button/_disabled/form__button_disabled.css);
 @import url(../blocks/form/__name-text/_type_error/form__name-text_type_error.css);
+@import url(../blocks/profile/__edit-avatar-button/profile__edit-avatar-button.css);
