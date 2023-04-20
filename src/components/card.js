@@ -1,4 +1,6 @@
 import { openPopup, closePopup } from "./modal.js";
+import { addCardServerPost, renderLoading, deleteCardServer, likePutServer, likeDeleteServer } from "./api.js";
+import { data, event } from "jquery";
 const popupOpenCard = document.querySelector('.popup_open-card');
 const popupTextImage = popupOpenCard.querySelector('.popup__text-image');
 const popupImage = popupOpenCard.querySelector('.popup__image');
@@ -8,7 +10,8 @@ const linkInputImage = formAddImage.querySelector('input:nth-of-type(2)');
 const elementList = document.querySelector('.elements');
 const popupAddImage = document.querySelector('.popup_add_image');
 
-export function createCard(nameInputImage, linkInputImage) {
+
+export function createCard(nameInputImage, linkInputImage, id, ownerId, arrayLikes) {
   const templateElements = document.querySelector('#templateElements').content;
   const elements = templateElements.cloneNode(true);
   const elementText = elements.querySelector('.element__text');
@@ -16,9 +19,25 @@ export function createCard(nameInputImage, linkInputImage) {
   elementText.textContent = nameInputImage;
   elementLink.src = linkInputImage;
   elementLink.alt = linkInputImage;
+  const likesNumber = elements.querySelector('.element__likes-number');
+  const buttonLike = elements.querySelector('.element__button');
+  if (arrayLikes.length === 0) {
+    likesNumber.textContent = '0';
+  }
+  else { likesNumber.textContent = arrayLikes.length };
 
-  elements.querySelector('.element__button').addEventListener('click', function (event) {
-    event.target.classList.toggle('element__button_active');
+
+  buttonLike.addEventListener('click', function (event) {
+  //кнопка лайка
+    buttonLike.dataset.id = id;
+    if (event.target.classList.toggle('element__button_active')) {
+      event.target.nextElementSibling.textContent++;
+      likePutServer(buttonLike.dataset.id = id)
+    }
+    else {
+      event.target.nextElementSibling.textContent--;
+      likeDeleteServer(buttonLike.dataset.id = id)
+    }
   })
 
   elements.querySelector('.element__image').addEventListener('click', function (evt) {
@@ -26,14 +45,21 @@ export function createCard(nameInputImage, linkInputImage) {
     popupTextImage.textContent = evt.target.nextElementSibling.firstElementChild.textContent;
     popupImage.src = evt.target.src;
     popupImage.alt = evt.target.alt;
-    openPopup(popupOpenCard); // не понимаю,почему не открывается попап, когда было в Index.js все работало
+    openPopup(popupOpenCard);
   })
 
   const deleteButtom = elements.querySelector('.element__button-trash');
+  const myId = "c4229ae43c28a79de6bd8609";
+  if (myId !== ownerId) {
+    deleteButtom.style.display = "none";
+  }
   deleteButtom.addEventListener('click', function () {
     const element = deleteButtom.closest('.element');
+    element.dataset.id = id;
+    deleteCardServer(element.dataset.id)
     element.remove();
   })
+
 
   return elements;
 }
@@ -42,6 +68,8 @@ export function addCard(evt) {
   evt.preventDefault();
   const card = createCard(nameInputImage.value, linkInputImage.value);
   elementList.prepend(card);
+  renderLoading(true);
+  addCardServerPost({ name: nameInputImage.value, link: linkInputImage.value })
   closePopup(popupAddImage);
 }
 

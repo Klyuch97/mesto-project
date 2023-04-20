@@ -1,3 +1,5 @@
+import { profileInfoPatch,renderLoading } from "./api.js";
+
 const nameInput = document.querySelector('.form__name-text');
 const jobInput = document.querySelector('input:nth-of-type(2)');
 const nameProfile = document.querySelector('.profile__info-cell-text');
@@ -36,5 +38,7 @@ export function submitEditProfileForm(evt) {
   const jobInputValue = jobInput.value;
   nameProfile.textContent = inputValue;
   job.textContent = jobInputValue;
+  renderLoading(true );
+  profileInfoPatch({ name: nameInput.value, about: jobInput.value })
   closePopup(popupEdifProfile);
 }

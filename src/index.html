@@ -45,7 +45,7 @@
               minlength="2" maxlength="200" required pattern="^[A-Za-zА-Яа-яЁё\s-]+$"
               data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы">
             <span class="job-input-error form__input-error"></span>
-            <button class="form__button " type="submit" disabled>Сохранить</button>
+            <button class="form__button" type="submit" disabled>Сохранить</button>
           </form>
         </div>
       </section>
@@ -54,12 +54,15 @@
       </section>
 
       <template id="templateElements">
-        <div class="element">
+        <div class="element" data-id="">
           <button class="element__button-trash" type="button"></button>
           <img src="" alt="Картинка" class="element__image">
           <div class="element__block">
             <h2 class="element__text"></h2>
-            <button class="element__button" type="button"></button>
+            <div class="element__likes-and-number">
+              <button class="element__button" type="button"></button>
+              <span class="element__likes-number">0</span>
+            </div>
           </div>
         </div>
       </template>
