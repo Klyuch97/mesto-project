@@ -1,10 +1,10 @@
 import { profileInfoPatch } from "./api.js";
 import { renderLoading } from "../index.js";
 
-const nameInput = document.querySelector('.form__name-text');
-const jobInput = document.querySelector('input:nth-of-type(2)');
-const nameProfile = document.querySelector('.profile__info-cell-text');
-const job = document.querySelector('.profile__info-text');
+export const nameInput = document.querySelector('.form__name-text');
+export const jobInput = document.querySelector('input:nth-of-type(2)');
+export const nameProfile = document.querySelector('.profile__info-cell-text');
+export const job = document.querySelector('.profile__info-text');
 const popupEdifProfile = document.querySelector('.popup_edit-profile');
 const buttonSaveProfile = document.querySelector('.form__button');
 
@@ -36,10 +36,8 @@ export function closeClickOverlay(evt) {
 
 export function submitEditProfileForm(evt) {
   evt.preventDefault();
-  const inputValue = nameInput.value;
-  const jobInputValue = jobInput.value;
-  nameProfile.textContent = inputValue;
-  job.textContent = jobInputValue;
+ nameProfile.textContent = nameInput.value;
+  job.textContent = jobInput.value;
   renderLoading(true, buttonSaveProfile);
   profileInfoPatch({ name: nameInput.value, about: jobInput.value })
   closePopup(popupEdifProfile);

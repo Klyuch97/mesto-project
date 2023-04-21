@@ -1,6 +1,6 @@
 import { openPopup, closePopup } from "./modal.js";
 import { addCardServerPost, deleteCardServer, likePutServer, likeDeleteServer } from "./api.js";
-import { renderLoading } from "../index.js";
+import { renderLoading, buttonElementCreate,myId } from "../index.js";
 const popupOpenCard = document.querySelector('.popup_open-card');
 const popupTextImage = popupOpenCard.querySelector('.popup__text-image');
 const popupImage = popupOpenCard.querySelector('.popup__image');
@@ -11,7 +11,7 @@ const elementList = document.querySelector('.elements');
 const popupAddImage = document.querySelector('.popup_add_image');
 
 
-export function createCard(nameInputImage, linkInputImage, id, ownerId, arrayLikes) {
+export function createCard(nameInputImage, linkInputImage, id, ownerId, arrayLikes,myId) {
   const templateElements = document.querySelector('#templateElements').content;
   const elements = templateElements.cloneNode(true);
   const elementText = elements.querySelector('.element__text');
@@ -21,9 +21,9 @@ export function createCard(nameInputImage, linkInputImage, id, ownerId, arrayLik
   elementLink.alt = linkInputImage;
   const likesNumber = elements.querySelector('.element__likes-number');
   const buttonLike = elements.querySelector('.element__button');
-  const myId = "c4229ae43c28a79de6bd8609";
 
-  if (arrayLikes.length === 0) {
+
+  /*if (arrayLikes.length === 0) {
     likesNumber.textContent = '0';
   }
   else { likesNumber.textContent = arrayLikes.length };
@@ -31,7 +31,7 @@ export function createCard(nameInputImage, linkInputImage, id, ownerId, arrayLik
   for (let i = 0; i < arrayLikes.length; i++)
     if (arrayLikes[i]._id === myId) {
       buttonLike.classList.add('element__button_active')
-    }
+    }*/
 
   buttonLike.addEventListener('click', function (event) {
 
@@ -55,7 +55,6 @@ export function createCard(nameInputImage, linkInputImage, id, ownerId, arrayLik
   })
 
   const deleteButtom = elements.querySelector('.element__button-trash');
-
   if (myId !== ownerId) {
     deleteButtom.style.display = "none";
   }
@@ -73,7 +72,7 @@ export function addCard(evt) {
   evt.preventDefault();
   const card = createCard(nameInputImage.value, linkInputImage.value);
   elementList.prepend(card);
-  renderLoading(true);
+  renderLoading(true,buttonElementCreate);
   addCardServerPost({ name: nameInputImage.value, link: linkInputImage.value })
   closePopup(popupAddImage);
 }
