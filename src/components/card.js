@@ -1,6 +1,6 @@
 import { openPopup, closePopup } from "./modal.js";
-import { addCardServerPost, renderLoading, deleteCardServer, likePutServer, likeDeleteServer } from "./api.js";
-import { data, event } from "jquery";
+import { addCardServerPost, deleteCardServer, likePutServer, likeDeleteServer } from "./api.js";
+import { renderLoading } from "../index.js";
 const popupOpenCard = document.querySelector('.popup_open-card');
 const popupTextImage = popupOpenCard.querySelector('.popup__text-image');
 const popupImage = popupOpenCard.querySelector('.popup__image');
@@ -22,7 +22,7 @@ export function createCard(nameInputImage, linkInputImage, id, ownerId, arrayLik
   const likesNumber = elements.querySelector('.element__likes-number');
   const buttonLike = elements.querySelector('.element__button');
   const myId = "c4229ae43c28a79de6bd8609";
-  
+
   if (arrayLikes.length === 0) {
     likesNumber.textContent = '0';
   }

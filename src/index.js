@@ -6,7 +6,7 @@ import {
   enableValidation, hasInvalidInput, settings
 } from "./components/validate.js";
 import { createCard, addCard } from './components/card.js';
-import { getAvatarInfo, getInitialCards, avatarInfoPatch,renderLoading } from './components/api.js';
+import { getUserInfo, getInitialCards, avatarInfoPatch} from './components/api.js';
 
 const buttonOpenEditProfilePopup = document.querySelector('.profile__info-cell-button');
 const popupEdifProfile = document.querySelector('.popup_edit-profile');
@@ -23,14 +23,22 @@ const popupEditAvatar = document.querySelector('.popup_edit-avatar');
 const formEditAvatar = document.querySelector('.form_edit-avatar')
 const linkAvatar = document.querySelector('.form_avatar');
 const closeButtons = document.querySelectorAll('.popup__close');
+const buttonElementCreate = document.querySelector('.form__button__create');
+const buttonEditAvatarSave = document.querySelector('.form__button-edit-avatar');
 
-function toggleButton(settings) {
-  const buttonElementCreate = document.querySelector('.form__button__create');
-  const buttonEditAvatar = document.querySelector('.form__button-edit-avatar');
-  buttonElementCreate.disabled = true;
-  buttonElementCreate.classList.add(settings.formButtonDisabled);
-  buttonEditAvatar.disabled = true;
-  buttonEditAvatar.classList.add(settings.formButtonDisabled);
+
+export const buttonSaveProfile = document.querySelector('.form__button');
+export const buttonSaveAvatar = document.querySelector('.form__button-edit-avatar');
+
+export function editAvatarInfo(result) {
+  document.querySelector('.profile__info-cell-text').textContent = result.name
+  document.querySelector('.profile__info-text').textContent = result.about
+  document.querySelector('.profile__image').src = result.avatar
+}
+
+function toggleButton(settings,button) {
+ button.disabled = true;
+  button.classList.add(settings.formButtonDisabled);
 }
 
 buttonOpenEditProfilePopup.addEventListener('click', function () {
@@ -42,12 +50,11 @@ buttonOpenEditProfilePopup.addEventListener('click', function () {
 buttonOpenAddCardPopup.addEventListener('click', function () {
   formAddImage.reset();
   openPopup(popupAddImage);
-  toggleButton(settings);
+  toggleButton(settings,buttonElementCreate);
 });
-
 buttonEditAvatar.addEventListener('click', function () {
   formEditAvatar.reset();
-  toggleButton(settings);
+  toggleButton(settings,buttonEditAvatarSave);
   openPopup(popupEditAvatar);
 });
 
@@ -67,16 +74,25 @@ function editAvatar(evt) {
   const avatar = document.querySelector('.profile__image');
   const linkAvatarValue = linkAvatar.value
   avatar.src = linkAvatarValue;
-  renderLoading(true);
+  renderLoading(true,buttonSaveAvatar);
   avatarInfoPatch({ avatar: linkAvatar.value })
   closePopup(popupEditAvatar);
 }
 
 formEditAvatar.addEventListener('submit', editAvatar);
 
+export function renderLoading(isLoading,button) {
+  if (isLoading) {
+    button.textContent = 'Сохранение';
+  }
+  else {
+    button.textContent = 'Сохранить';
+  }
+}
+
 enableValidation(settings);
 getInitialCards()
-getAvatarInfo()
+getUserInfo()
 
 
 

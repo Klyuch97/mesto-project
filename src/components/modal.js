@@ -1,10 +1,12 @@
-import { profileInfoPatch,renderLoading } from "./api.js";
+import { profileInfoPatch } from "./api.js";
+import { renderLoading } from "../index.js";
 
 const nameInput = document.querySelector('.form__name-text');
 const jobInput = document.querySelector('input:nth-of-type(2)');
 const nameProfile = document.querySelector('.profile__info-cell-text');
 const job = document.querySelector('.profile__info-text');
 const popupEdifProfile = document.querySelector('.popup_edit-profile');
+const buttonSaveProfile = document.querySelector('.form__button');
 
 export function openPopup(popup) {
   popup.classList.add('popup_opened');
@@ -38,7 +40,7 @@ export function submitEditProfileForm(evt) {
   const jobInputValue = jobInput.value;
   nameProfile.textContent = inputValue;
   job.textContent = jobInputValue;
-  renderLoading(true );
+  renderLoading(true, buttonSaveProfile);
   profileInfoPatch({ name: nameInput.value, about: jobInput.value })
   closePopup(popupEdifProfile);
 }
