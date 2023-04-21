@@ -1,5 +1,5 @@
 import { profileInfoPatch } from "./api.js";
-import { renderLoading } from "../index.js";
+import { myAbout, myName, renderLoading } from "../index.js";
 
 export const nameInput = document.querySelector('.form__name-text');
 export const jobInput = document.querySelector('input:nth-of-type(2)');
@@ -36,9 +36,18 @@ export function closeClickOverlay(evt) {
 
 export function submitEditProfileForm(evt) {
   evt.preventDefault();
- nameProfile.textContent = nameInput.value;
-  job.textContent = jobInput.value;
   renderLoading(true, buttonSaveProfile);
   profileInfoPatch({ name: nameInput.value, about: jobInput.value })
-  closePopup(popupEdifProfile);
+    .then(data => {
+      nameProfile.textContent = nameInput.value;
+      job.textContent = jobInput.value;
+      closePopup(popupEdifProfile);
+    })
+    //Здесь вносим изменения в DOM, например меняем текст профиля и закрываем модальное окно.
+    .catch((err) => {
+      console.log(err); // выводим ошибку в консоль
+    })
+    .finally(() => {
+      renderLoading(false, buttonSaveProfile);
+    })
 }

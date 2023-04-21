@@ -1,6 +1,6 @@
 import { openPopup, closePopup } from "./modal.js";
 import { addCardServerPost, deleteCardServer, likePutServer, likeDeleteServer } from "./api.js";
-import { renderLoading, buttonElementCreate,myId } from "../index.js";
+import { renderLoading, buttonElementCreate, myId } from "../index.js";
 const popupOpenCard = document.querySelector('.popup_open-card');
 const popupTextImage = popupOpenCard.querySelector('.popup__text-image');
 const popupImage = popupOpenCard.querySelector('.popup__image');
@@ -22,8 +22,7 @@ export function createCard(nameInputImage, linkInputImage, id, ownerId, arrayLik
   const likesNumber = elements.querySelector('.element__likes-number');
   const buttonLike = elements.querySelector('.element__button');
 
-
-  /*if (arrayLikes.length === 0) {
+  if (arrayLikes.length === 0) {
     likesNumber.textContent = '0';
   }
   else { likesNumber.textContent = arrayLikes.length };
@@ -31,7 +30,7 @@ export function createCard(nameInputImage, linkInputImage, id, ownerId, arrayLik
   for (let i = 0; i < arrayLikes.length; i++)
     if (arrayLikes[i]._id === myId) {
       buttonLike.classList.add('element__button_active')
-    }*/
+    }
 
   buttonLike.addEventListener('click', function (event) {
 
@@ -70,11 +69,22 @@ export function createCard(nameInputImage, linkInputImage, id, ownerId, arrayLik
 
 export function addCard(evt) {
   evt.preventDefault();
-  const card = createCard(nameInputImage.value, linkInputImage.value);
-  elementList.prepend(card);
   renderLoading(true,buttonElementCreate);
   addCardServerPost({ name: nameInputImage.value, link: linkInputImage.value })
-  closePopup(popupAddImage);
+  .then(data => {
+    const card = createCard(nameInputImage.value, linkInputImage.value);
+    elementList.prepend(card);
+
+  })
+  //Здесь вносим изменения в DOM, например меняем текст профиля и закрываем модальное окно.
+  .catch((err) => {
+    console.log(err); // выводим ошибку в консоль
+  })
+  .finally(() => {
+    renderLoading(false, buttonElementCreate)
+    closePopup(popupAddImage);
+  })
+
 }
 
 

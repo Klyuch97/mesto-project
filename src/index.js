@@ -1,6 +1,8 @@
 import '../src/index.css';
-import { openPopup, closePopup, closeClickOverlay, closePressEscape, submitEditProfileForm,
-   /*nameProfile, job,nameInput,jobInput*/ }  from "./components/modal.js";
+import {
+  openPopup, closePopup, closeClickOverlay, closePressEscape, submitEditProfileForm,
+  /*nameProfile, job,nameInput,jobInput*/
+} from "./components/modal.js";
 import {
   showInputError, hideInputError, isValid, toggleButtonState, setEventListeners,
   enableValidation, hasInvalidInput, settings
@@ -69,12 +71,21 @@ formAddImage.addEventListener('submit', addCard);
 
 function editAvatar(evt) {
   evt.preventDefault();
-  const avatar = document.querySelector('.profile__image');
-  const linkAvatarValue = linkAvatar.value
-  avatar.src = linkAvatarValue;
   renderLoading(true, buttonSaveAvatar);
   avatarInfoPatch({ avatar: linkAvatar.value })
-  closePopup(popupEditAvatar);
+    .then(data => {
+      const avatar = document.querySelector('.profile__image');
+      const linkAvatarValue = linkAvatar.value
+      avatar.src = linkAvatarValue;
+      closePopup(popupEditAvatar);
+    })
+    //Здесь вносим изменения в DOM, например меняем текст профиля и закрываем модальное окно.
+    .catch((err) => {
+      console.log(err); // выводим ошибку в консоль
+    })
+    .finally(() => {
+      renderLoading(false, buttonSaveAvatar);
+    })
 }
 
 formEditAvatar.addEventListener('submit', editAvatar);
@@ -85,11 +96,11 @@ export function renderLoading(isLoading, button) {
   }
   else {
     button.textContent = 'Сохранить';
+    buttonElementCreate.textContent= 'Создать';
   }
 }
 
 enableValidation(settings);
-/*getInitialCards()*/
 
 export let myId = null;//Объявляем глобально переменную c id, что мы могли использовать её, например в card.js.
 export let myAbout = null;
@@ -105,8 +116,6 @@ Promise.all([getUserInfo(), getInitialCards()])
     let myAvatar = userData.avatar;
     let myName = userData.name;
     editAvatarInfo(myAvatar, myName, myAbout);
-
-
 
     cardsData.forEach(function (result) {
       const card = createCard(result.name, result.link,

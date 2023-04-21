@@ -1,6 +1,5 @@
 import { createCard } from "./card.js"
 import { editAvatarInfo, renderLoading } from "../index.js";
-import { buttonSaveAvatar, buttonSaveProfile,buttonElementCreate } from "../index.js";
 import { myAvatar } from "../index.js";
 
 function checkResult(res) {
@@ -41,12 +40,12 @@ export function addCardServerPost(data) {
       link: data.link,
     })
   })
-    .catch((err) => {
+    /*.catch((err) => {
       console.log(err); // выводим ошибку в консоль
     })
     .finally(() => {
       renderLoading(false, buttonElementCreate.textContent= "Создать")
-    });
+    });*/
 }
 
 export const avatarInfoPatch = (data) => {
@@ -60,12 +59,6 @@ export const avatarInfoPatch = (data) => {
       avatar: data.avatar
     })
   })
-    .catch((err) => {
-      console.log(err); // выводим ошибку в консоль
-    })
-    .finally(() => {
-      renderLoading(false, buttonSaveAvatar)
-    });
 }
 
 export const profileInfoPatch = (data) => {
@@ -77,15 +70,9 @@ export const profileInfoPatch = (data) => {
     },
     body: JSON.stringify({
       name: data.name,
-      about: data.about
+      about: data.about,
     })
   })
-    .catch((err) => {
-      console.log(err); // выводим ошибку в консоль
-    })
-    .finally(() => {
-      renderLoading(false, buttonSaveProfile)
-    });
 }
 
 
