@@ -6,7 +6,7 @@ import {
   enableValidation, hasInvalidInput, settings
 } from "./components/validate.js";
 import { createCard, addCard } from './components/card.js';
-import { getAvatarInfo, getInitialCards, avatarInfoPatch,deleteCardServer,renderLoading } from './components/api.js';
+import { getAvatarInfo, getInitialCards, avatarInfoPatch,renderLoading } from './components/api.js';
 
 const buttonOpenEditProfilePopup = document.querySelector('.profile__info-cell-button');
 const popupEdifProfile = document.querySelector('.popup_edit-profile');
@@ -22,7 +22,7 @@ const buttonEditAvatar = document.querySelector('.profile__edit-avatar-button');
 const popupEditAvatar = document.querySelector('.popup_edit-avatar');
 const formEditAvatar = document.querySelector('.form_edit-avatar')
 const linkAvatar = document.querySelector('.form_avatar');
-
+const closeButtons = document.querySelectorAll('.popup__close');
 
 function toggleButton(settings) {
   const buttonElementCreate = document.querySelector('.form__button__create');
@@ -50,9 +50,6 @@ buttonEditAvatar.addEventListener('click', function () {
   toggleButton(settings);
   openPopup(popupEditAvatar);
 });
-
-// находим все крестики проекта по универсальному селектору
-const closeButtons = document.querySelectorAll('.popup__close');
 
 closeButtons.forEach((button) => {
   // находим 1 раз ближайший к крестику попап

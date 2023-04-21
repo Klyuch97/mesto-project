@@ -21,14 +21,20 @@ export function createCard(nameInputImage, linkInputImage, id, ownerId, arrayLik
   elementLink.alt = linkInputImage;
   const likesNumber = elements.querySelector('.element__likes-number');
   const buttonLike = elements.querySelector('.element__button');
+  const myId = "c4229ae43c28a79de6bd8609";
+  
   if (arrayLikes.length === 0) {
     likesNumber.textContent = '0';
   }
   else { likesNumber.textContent = arrayLikes.length };
 
+  for (let i = 0; i < arrayLikes.length; i++)
+    if (arrayLikes[i]._id === myId) {
+      buttonLike.classList.add('element__button_active')
+    }
 
   buttonLike.addEventListener('click', function (event) {
-  //кнопка лайка
+
     buttonLike.dataset.id = id;
     if (event.target.classList.toggle('element__button_active')) {
       event.target.nextElementSibling.textContent++;
@@ -49,7 +55,7 @@ export function createCard(nameInputImage, linkInputImage, id, ownerId, arrayLik
   })
 
   const deleteButtom = elements.querySelector('.element__button-trash');
-  const myId = "c4229ae43c28a79de6bd8609";
+
   if (myId !== ownerId) {
     deleteButtom.style.display = "none";
   }
@@ -59,7 +65,6 @@ export function createCard(nameInputImage, linkInputImage, id, ownerId, arrayLik
     deleteCardServer(element.dataset.id)
     element.remove();
   })
-
 
   return elements;
 }
