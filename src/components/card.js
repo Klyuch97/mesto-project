@@ -11,7 +11,7 @@ const elementList = document.querySelector('.elements');
 const popupAddImage = document.querySelector('.popup_add_image');
 
 
-export function createCard(nameInputImage, linkInputImage, id, ownerId, arrayLikes,myId) {
+export function createCard(nameInputImage, linkInputImage, id, ownerId, arrayLikes, myId) {
   const templateElements = document.querySelector('#templateElements').content;
   const elements = templateElements.cloneNode(true);
   const elementText = elements.querySelector('.element__text');
@@ -33,15 +33,21 @@ export function createCard(nameInputImage, linkInputImage, id, ownerId, arrayLik
     }
 
   buttonLike.addEventListener('click', function (event) {
-
     buttonLike.dataset.id = id;
     if (event.target.classList.toggle('element__button_active')) {
-      event.target.nextElementSibling.textContent++;
       likePutServer(buttonLike.dataset.id = id)
+        .then(() => { event.target.nextElementSibling.textContent++; })
+        .catch((err) => {
+          console.log(err); // выводим ошибку в консоль
+        })
     }
     else {
-      event.target.nextElementSibling.textContent--;
+
       likeDeleteServer(buttonLike.dataset.id = id)
+        .then(() => { event.target.nextElementSibling.textContent--; })
+        .catch((err) => {
+          console.log(err); // выводим ошибку в консоль
+        })
     }
   })
 
@@ -61,7 +67,12 @@ export function createCard(nameInputImage, linkInputImage, id, ownerId, arrayLik
     const element = deleteButtom.closest('.element');
     element.dataset.id = id;
     deleteCardServer(element.dataset.id)
-    element.remove();
+      .then(() => {
+        element.remove();
+      })
+      .catch((err) => {
+        console.log(err); // выводим ошибку в консоль
+      })
   })
 
   return elements;
@@ -69,21 +80,19 @@ export function createCard(nameInputImage, linkInputImage, id, ownerId, arrayLik
 
 export function addCard(evt) {
   evt.preventDefault();
-  renderLoading(true,buttonElementCreate);
+  renderLoading(true, buttonElementCreate);
   addCardServerPost({ name: nameInputImage.value, link: linkInputImage.value })
-  .then(data => {
-    const card = createCard(nameInputImage.value, linkInputImage.value);
-    elementList.prepend(card);
-
-  })
-  //Здесь вносим изменения в DOM, например меняем текст профиля и закрываем модальное окно.
-  .catch((err) => {
-    console.log(err); // выводим ошибку в консоль
-  })
-  .finally(() => {
-    renderLoading(false, buttonElementCreate)
-    closePopup(popupAddImage);
-  })
+    .then(data => {
+      const card = createCard(nameInputImage.value, linkInputImage.value);
+      elementList.prepend(card);
+    })
+    .catch((err) => {
+      console.log(err); // выводим ошибку в консоль
+    })
+    .finally(() => {
+      renderLoading(false, buttonElementCreate)
+      closePopup(popupAddImage);
+    })
 
 }
 

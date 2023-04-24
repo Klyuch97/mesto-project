@@ -40,12 +40,6 @@ export function addCardServerPost(data) {
       link: data.link,
     })
   })
-    /*.catch((err) => {
-      console.log(err); // выводим ошибку в консоль
-    })
-    .finally(() => {
-      renderLoading(false, buttonElementCreate.textContent= "Создать")
-    });*/
 }
 
 export const avatarInfoPatch = (data) => {
@@ -83,9 +77,6 @@ export const deleteCardServer = (id) => {
       authorization: '70b0f800-c3d5-43c3-9a38-db0198e51959',
     }
   })
-    .catch((err) => {
-      console.log(err); // выводим ошибку в консоль
-    })
 }
 
 export const likePutServer = (idCard) => {
@@ -95,9 +86,6 @@ export const likePutServer = (idCard) => {
       authorization: '70b0f800-c3d5-43c3-9a38-db0198e51959',
     }
   })
-    .catch((err) => {
-      console.log(err); // выводим ошибку в консоль
-    })
 }
 
 export const likeDeleteServer = (idCard) => {
@@ -107,8 +95,5 @@ export const likeDeleteServer = (idCard) => {
       authorization: '70b0f800-c3d5-43c3-9a38-db0198e51959',
     }
   })
-    .catch((err) => {
-      console.log(err); // выводим ошибку в консоль
-    })
 }
 

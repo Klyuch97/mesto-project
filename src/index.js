@@ -1,14 +1,13 @@
 import '../src/index.css';
 import {
-  openPopup, closePopup, closeClickOverlay, closePressEscape, submitEditProfileForm,
-  /*nameProfile, job,nameInput,jobInput*/
+  openPopup, closePopup, closeClickOverlay, closePressEscape,
 } from "./components/modal.js";
 import {
   showInputError, hideInputError, isValid, toggleButtonState, setEventListeners,
   enableValidation, hasInvalidInput, settings
 } from "./components/validate.js";
 import { createCard, addCard } from './components/card.js';
-import { getUserInfo, getInitialCards, avatarInfoPatch } from './components/api.js';
+import { getUserInfo, getInitialCards, avatarInfoPatch, profileInfoPatch } from './components/api.js';
 
 const buttonOpenEditProfilePopup = document.querySelector('.profile__info-cell-button');
 const popupEdifProfile = document.querySelector('.popup_edit-profile');
@@ -65,7 +64,6 @@ closeButtons.forEach((button) => {
   button.addEventListener('click', () => closePopup(popup));
 });
 
-formElement.addEventListener('submit', submitEditProfileForm);
 
 formAddImage.addEventListener('submit', addCard);
 
@@ -96,7 +94,7 @@ export function renderLoading(isLoading, button) {
   }
   else {
     button.textContent = 'Сохранить';
-    buttonElementCreate.textContent= 'Создать';
+    buttonElementCreate.textContent = 'Создать';
   }
 }
 
@@ -109,7 +107,6 @@ export let myName = null;
 
 
 Promise.all([getUserInfo(), getInitialCards()])
-
   .then(([userData, cardsData]) => {
     let myId = userData._id;
     let myAbout = userData.about;
@@ -123,12 +120,33 @@ Promise.all([getUserInfo(), getInitialCards()])
       const elementList = document.querySelector('.elements');
       elementList.append(card)
     })
-    //Здесь здесь записываем значение myId, устанавливаем данные пользователя и рисуем карточки
   })
   .catch((err) => {
     console.log(err); // выводим ошибку в консоль
   });
 
+export function submitEditProfileForm(evt) {
+  evt.preventDefault();
+  const popupEdifProfile = document.querySelector('.popup_edit-profile');
+  const buttonSaveProfile = document.querySelector('.form__button');
+  const nameInput = document.querySelector('.form__name-text');
+  const jobInput = document.querySelector('input:nth-of-type(2)');
+  const nameProfile = document.querySelector('.profile__info-cell-text');
+  const job = document.querySelector('.profile__info-text');
+  renderLoading(true, buttonSaveProfile);
+  profileInfoPatch({ name: nameInput.value, about: jobInput.value })
+    .then(data => {
+      nameProfile.textContent = nameInput.value;
+      job.textContent = jobInput.value;
+      closePopup(popupEdifProfile);
+    })
+    //Здесь вносим изменения в DOM, например меняем текст профиля и закрываем модальное окно.
+    .catch((err) => {
+      console.log(err); // выводим ошибку в консоль
+    })
+    .finally(() => {
+      renderLoading(false, buttonSaveProfile);
+    })
+}
 
-
-
+formElement.addEventListener('submit', submitEditProfileForm);
