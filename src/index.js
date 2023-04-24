@@ -1,20 +1,14 @@
 import '../src/index.css';
-import {
-  openPopup, closePopup, closeClickOverlay, closePressEscape,
-} from "./components/modal.js";
-import {
-  showInputError, hideInputError, isValid, toggleButtonState, setEventListeners,
-  enableValidation, hasInvalidInput, settings
-} from "./components/validate.js";
-import { createCard, addCard } from './components/card.js';
-import { getUserInfo, getInitialCards, avatarInfoPatch, profileInfoPatch } from './components/api.js';
+import { openPopup, closePopup } from "./components/modal.js";
+import { enableValidation, settings } from "./components/validate.js";
+import { createCard } from './components/card.js';
+import { getUserInfo, getInitialCards, avatarInfoPatch, profileInfoPatch, addCardServerPost } from './components/api.js';
 
 const buttonOpenEditProfilePopup = document.querySelector('.profile__info-cell-button');
 const popupEdifProfile = document.querySelector('.popup_edit-profile');
 const nameInput = document.querySelector('.form__name-text');
 const jobInput = document.querySelector('input:nth-of-type(2)');
 const buttonOpenAddCardPopup = document.querySelector('.profile__button');
-const popupAddImage = document.querySelector('.popup_add_image');
 const formAddImage = document.querySelector('.form_add-image');
 const nameProfile = document.querySelector('.profile__info-cell-text');
 const job = document.querySelector('.profile__info-text');
@@ -28,6 +22,10 @@ export const buttonElementCreate = document.querySelector('.form__button__create
 const buttonEditAvatarSave = document.querySelector('.form__button-edit-avatar');
 export const buttonSaveProfile = document.querySelector('.form__button');
 export const buttonSaveAvatar = document.querySelector('.form__button-edit-avatar');
+const nameInputImage = formAddImage.querySelector('.form_name-image');
+const linkInputImage = formAddImage.querySelector('input:nth-of-type(2)');
+const elementList = document.querySelector('.elements');
+const popupAddImage = document.querySelector('.popup_add_image');
 
 export function editAvatarInfo(avatar, name, about) {
   document.querySelector('.profile__info-cell-text').textContent = name
@@ -150,3 +148,21 @@ export function submitEditProfileForm(evt) {
 }
 
 formElement.addEventListener('submit', submitEditProfileForm);
+
+export function addCard(evt) {
+  evt.preventDefault();
+  renderLoading(true, buttonElementCreate);
+  addCardServerPost({ name: nameInputImage.value, link: linkInputImage.value })
+    .then(data => {
+      const card = createCard(data.name, data.link,
+        data._id, data.owner._id, data.likes, data.owner._id);
+      elementList.prepend(card);
+    })
+    .catch((err) => {
+      console.log(err); // выводим ошибку в консоль
+    })
+    .finally(() => {
+      renderLoading(false, buttonElementCreate)
+      closePopup(popupAddImage);
+    })
+}

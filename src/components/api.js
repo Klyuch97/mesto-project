@@ -1,7 +1,3 @@
-import { createCard } from "./card.js"
-import { editAvatarInfo, renderLoading } from "../index.js";
-import { myAvatar } from "../index.js";
-
 function checkResult(res) {
   if (res.ok) {
     return res.json();

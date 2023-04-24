@@ -1,15 +1,8 @@
-import { openPopup, closePopup } from "./modal.js";
-import { addCardServerPost, deleteCardServer, likePutServer, likeDeleteServer, getInitialCards } from "./api.js";
-import { renderLoading, buttonElementCreate, myId } from "../index.js";
+import { openPopup } from "./modal.js";
+import { deleteCardServer, likePutServer, likeDeleteServer } from "./api.js";
 const popupOpenCard = document.querySelector('.popup_open-card');
 const popupTextImage = popupOpenCard.querySelector('.popup__text-image');
 const popupImage = popupOpenCard.querySelector('.popup__image');
-const formAddImage = document.querySelector('.form_add-image');
-const nameInputImage = formAddImage.querySelector('.form_name-image');
-const linkInputImage = formAddImage.querySelector('input:nth-of-type(2)');
-const elementList = document.querySelector('.elements');
-const popupAddImage = document.querySelector('.popup_add_image');
-
 
 export function createCard(nameInputImage, linkInputImage, id, ownerId, arrayLikes, myId) {
   const templateElements = document.querySelector('#templateElements').content;
@@ -77,23 +70,7 @@ export function createCard(nameInputImage, linkInputImage, id, ownerId, arrayLik
   return elements;
 }
 
-export function addCard(evt) {
-  evt.preventDefault();
-  renderLoading(true, buttonElementCreate);
-  addCardServerPost({ name: nameInputImage.value, link: linkInputImage.value })
-    .then(data => {
-      const card = createCard(data.name, data.link,
-        data._id, data.owner._id, data.likes, data.owner._id );
-      elementList.prepend(card);
-    })
-    .catch((err) => {
-      console.log(err); // выводим ошибку в консоль
-    })
-    .finally(() => {
-      renderLoading(false, buttonElementCreate)
-      closePopup(popupAddImage);
-    })
-}
+
 
 
 
