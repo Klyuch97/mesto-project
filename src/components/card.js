@@ -1,5 +1,5 @@
 import { openPopup, closePopup } from "./modal.js";
-import { addCardServerPost, deleteCardServer, likePutServer, likeDeleteServer } from "./api.js";
+import { addCardServerPost, deleteCardServer, likePutServer, likeDeleteServer, getInitialCards } from "./api.js";
 import { renderLoading, buttonElementCreate, myId } from "../index.js";
 const popupOpenCard = document.querySelector('.popup_open-card');
 const popupTextImage = popupOpenCard.querySelector('.popup__text-image');
@@ -21,7 +21,6 @@ export function createCard(nameInputImage, linkInputImage, id, ownerId, arrayLik
   elementLink.alt = linkInputImage;
   const likesNumber = elements.querySelector('.element__likes-number');
   const buttonLike = elements.querySelector('.element__button');
-
   if (arrayLikes.length === 0) {
     likesNumber.textContent = '0';
   }
@@ -83,7 +82,8 @@ export function addCard(evt) {
   renderLoading(true, buttonElementCreate);
   addCardServerPost({ name: nameInputImage.value, link: linkInputImage.value })
     .then(data => {
-      const card = createCard(nameInputImage.value, linkInputImage.value);
+      const card = createCard(data.name, data.link,
+        data._id, data.owner._id, data.likes, data.owner._id );
       elementList.prepend(card);
     })
     .catch((err) => {
@@ -93,7 +93,6 @@ export function addCard(evt) {
       renderLoading(false, buttonElementCreate)
       closePopup(popupAddImage);
     })
-
 }
 
 

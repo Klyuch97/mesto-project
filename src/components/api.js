@@ -28,8 +28,8 @@ export const getInitialCards = () => {
     .then(checkResult)
 }
 
-export function addCardServerPost(data) {
-  return fetch('https://nomoreparties.co/v1/plus-cohort-23/cards/', {
+export async function addCardServerPost(data) {
+  const res = await fetch('https://nomoreparties.co/v1/plus-cohort-23/cards/', {
     method: 'POST',
     headers: {
       authorization: '70b0f800-c3d5-43c3-9a38-db0198e51959',
@@ -40,6 +40,7 @@ export function addCardServerPost(data) {
       link: data.link,
     })
   })
+  return res.json();
 }
 
 export const avatarInfoPatch = (data) => {
