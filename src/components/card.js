@@ -1,10 +1,10 @@
-import { openPopup } from "./modal.js";
+import { closePopup, openPopup } from "./modal.js";
 import { deleteCardServer, likePutServer, likeDeleteServer } from "./api.js";
 const popupOpenCard = document.querySelector('.popup_open-card');
 const popupTextImage = popupOpenCard.querySelector('.popup__text-image');
 const popupImage = popupOpenCard.querySelector('.popup__image');
 
-export function createCard(nameInputImage, linkInputImage, id, ownerId, arrayLikes, myId) {
+/*export function createCard(nameInputImage, linkInputImage, id, ownerId, arrayLikes, myId) {
   const templateElements = document.querySelector('#templateElements').content;
   const elements = templateElements.cloneNode(true);
   const elementText = elements.querySelector('.element__text');
@@ -14,15 +14,7 @@ export function createCard(nameInputImage, linkInputImage, id, ownerId, arrayLik
   elementLink.alt = linkInputImage;
   const likesNumber = elements.querySelector('.element__likes-number');
   const buttonLike = elements.querySelector('.element__button');
-  if (arrayLikes.length === 0) {
-    likesNumber.textContent = '0';
-  }
-  else { likesNumber.textContent = arrayLikes.length };
 
-  for (let i = 0; i < arrayLikes.length; i++)
-    if (arrayLikes[i]._id === myId) {
-      buttonLike.classList.add('element__button_active')
-    }
 
   buttonLike.addEventListener('click', function (event) {
     buttonLike.dataset.id = id;
@@ -68,12 +60,70 @@ export function createCard(nameInputImage, linkInputImage, id, ownerId, arrayLik
   })
 
   return elements;
+}*/
+
+
+export default class Card {
+  constructor(data, selector, handleCardClick, handleLikeClick, myId) {
+    this.data = data,
+      this._name = data.name,
+      this._id = data._id;
+    this._ownerId = data.owner._id;
+    this._arrayLikes = data.likes;
+    this._myId = myId;
+    this._link = data.link,
+      this._selector = selector;
+    this._handleCardClick = handleCardClick;
+    this._handleLikeClick = handleLikeClick;
+  }
+
+  _getElement() {
+    const cardElement = document
+      .querySelector(this._selector)
+      .content
+      .querySelector('.element')
+      .cloneNode(true);
+    return cardElement;
+  }
+
+
+  generateCard() {
+    this.element = this._getElement();
+    this._setEventListeners();
+    this.elementText = this.element.querySelector('.element__text');
+    this.elementLink = this.element.querySelector('.element__image');
+    this.elementText.textContent = this._name;
+    this.elementLink.src = this._link;
+    this.elementLink.alt = this._link;
+    this.likesNumber = this.element.querySelector('.element__likes-number');
+    this.buttonLike = this.element.querySelector('.element__button');
+    if (this._arrayLikes.length === 0) {
+      this.likesNumber.textContent = '0';
+    }
+    else { this.likesNumber.textContent = this._arrayLikes.length };
+
+    for (let i = 0; i < this._arrayLikes.length; i++)
+      if (this._arrayLikes[i]._id === this._myId) {
+        this.buttonLike.classList.add('element__button_active')
+      }
+      this.deleteButtom = this.element.querySelector('.element__button-trash');
+  if (this._myId !== this._ownerId) {
+    this.deleteButtom.style.display = "none";
+  }
+
+
+    return this.element;
+  }
+
+
+  _setEventListeners() {
+    this.element.querySelector('.element__image').addEventListener('click', () => {
+      this._handleCardClick(this._name, this._link);
+    });
+    this.element.querySelector('.element__button').addEventListener('click', () => {
+      this._handleLikeClick(this._name, this._link);
+    });
+  }
 }
-
-
-
-
-
-
 
 

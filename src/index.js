@@ -1,8 +1,11 @@
 import '../src/index.css';
 import { openPopup, closePopup } from "./components/modal.js";
 import { enableValidation, settings } from "./components/validate.js";
-import { createCard } from './components/card.js';
-import { getUserInfo, getInitialCards, avatarInfoPatch, profileInfoPatch, addCardServerPost } from './components/api.js';
+import Api from "./components/api.js";
+import Card from "./components/card.js";
+import Section from "./components/section.js";
+import UserInfo from './components/userinfo.js';
+
 
 const buttonOpenEditProfilePopup = document.querySelector('.profile__info-cell-button');
 const popupEdifProfile = document.querySelector('.popup_edit-profile');
@@ -26,8 +29,11 @@ const nameInputImage = formAddImage.querySelector('.form_name-image');
 const linkInputImage = formAddImage.querySelector('input:nth-of-type(2)');
 const elementList = document.querySelector('.elements');
 const popupAddImage = document.querySelector('.popup_add_image');
+const popupOpenCard = document.querySelector('.popup_open-card');
+const popupTextImage = popupOpenCard.querySelector('.popup__text-image');
+const popupImage = popupOpenCard.querySelector('.popup__image');
 
-export function editAvatarInfo(avatar, name, about) {
+/*function editAvatarInfo(avatar, name, about) {
   document.querySelector('.profile__info-cell-text').textContent = name
   document.querySelector('.profile__info-text').textContent = about
   document.querySelector('.profile__image').src = avatar
@@ -53,7 +59,7 @@ buttonEditAvatar.addEventListener('click', function () {
   formEditAvatar.reset();
   toggleButton(settings, buttonEditAvatarSave);
   openPopup(popupEditAvatar);
-});
+});*/
 
 closeButtons.forEach((button) => {
   // находим 1 раз ближайший к крестику попап
@@ -63,9 +69,9 @@ closeButtons.forEach((button) => {
 });
 
 
-formAddImage.addEventListener('submit', addCard);
+//formAddImage.addEventListener('submit', addCard);
 
-function editAvatar(evt) {
+/*function editAvatar(evt) {
   evt.preventDefault();
   renderLoading(true, buttonSaveAvatar);
   avatarInfoPatch({ avatar: linkAvatar.value })
@@ -96,34 +102,97 @@ export function renderLoading(isLoading, button) {
   }
 }
 
-enableValidation(settings);
+enableValidation(settings);*/
 
-export let myId = null;//Объявляем глобально переменную c id, что мы могли использовать её, например в card.js.
+const api = new Api({
+  baseUrl: "https://nomoreparties.co/v1/plus-cohort-23/",
+  headers: {
+    authorization: "70b0f800-c3d5-43c3-9a38-db0198e51959",
+    "content-Type": "application/json",
+  },
+});
+
+export let myId = null//Объявляем глобально переменную c id, что мы могли использовать её, например в card.js.
 export let myAbout = null;
 export let myAvatar = null;
 export let myName = null;
 
+function handleCardClick() {
+  popupImage.src = this._link;
+  popupTextImage.textContent = this._name;
+  openPopup(popupOpenCard);
+}
 
-Promise.all([getUserInfo(), getInitialCards()])
+function handleLikeClick() {
+  this.buttonLike.dataset.id = this._id;
+  if (this.buttonLike.classList.toggle('element__button_active')) {
+    api.likePutServer(this.buttonLike.dataset.id = this._id)
+      .then(() => { this.likesNumber.textContent++; })
+  }
+
+  else {
+    api.likeDeleteServer(this.buttonLike.dataset.id = this._id)
+      .then(() => { this.likesNumber.textContent--; })
+  };
+
+  /*if (event.target.classList.toggle('element__button_active')) {
+    likePutServer(buttonLike.dataset.id = id)
+      .then(() => { event.target.nextElementSibling.textContent++; })
+  }
+  else {
+    likeDeleteServer(buttonLike.dataset.id = id)
+      .then(() => { event.target.nextElementSibling.textContent--; })
+  };*/
+}
+
+
+let UserInfoDefault = new UserInfo({
+  userNameSelector: ".profile__info-cell-text",
+  userAboutSelector: ".profile__info-text",
+  avatarSelector: ".profile__image",
+})
+
+Promise.all([api.getUserInfo(), api.getInitialCards()])
   .then(([userData, cardsData]) => {
     let myId = userData._id;
-    let myAbout = userData.about;
+    /*let myAbout = userData.about;
     let myAvatar = userData.avatar;
     let myName = userData.name;
-    editAvatarInfo(myAvatar, myName, myAbout);
+    editAvatarInfo(myAvatar, myName, myAbout);*/
+    UserInfoDefault.setUserInfo(userData);
+    const createCard = (data) => {
+      const card = new Card(
+        data,
+        '#templateElements',
+        handleCardClick,
+        handleLikeClick,
+        myId,
+      );
+      return card.generateCard();
+    }
 
-    cardsData.forEach(function (result) {
-      const card = createCard(result.name, result.link,
-        result._id, result.owner._id, result.likes, myId);
-      const elementList = document.querySelector('.elements');
-      elementList.append(card)
-    })
+    let cardList = new Section(
+      {
+        items: [],
+        renderer: createCard,
+      },
+      '.elements'
+    );
+    //console.log(myId);
+    cardList.renderItems(cardsData);
+    /* cardsData.forEach(function (result) {
+       const card = createCard(result.name, result.link,
+         result._id, result.owner._id, result.likes, myId);
+       const elementList = document.querySelector('s');
+       elementList.append(card)
+     })*/
   })
-  .catch((err) => {
-    console.log(err); // выводим ошибку в консоль
-  });
+/*.catch((err) => {
+  console.log(err); // выводим ошибку в консоль
+});*/
 
-export function submitEditProfileForm(evt) {
+
+/*export function submitEditProfileForm(evt) {
   evt.preventDefault();
   const popupEdifProfile = document.querySelector('.popup_edit-profile');
   const buttonSaveProfile = document.querySelector('.form__button');
@@ -149,7 +218,7 @@ export function submitEditProfileForm(evt) {
 
 formElement.addEventListener('submit', submitEditProfileForm);
 
-export function addCard(evt) {
+/*export function addCard(evt) {
   evt.preventDefault();
   renderLoading(true, buttonElementCreate);
   addCardServerPost({ name: nameInputImage.value, link: linkInputImage.value })
@@ -165,4 +234,8 @@ export function addCard(evt) {
       renderLoading(false, buttonElementCreate)
       closePopup(popupAddImage);
     })
-}
+}*/
+
+
+
+
