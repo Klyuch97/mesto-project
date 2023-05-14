@@ -1,5 +1,5 @@
 export default class UserInfo {
-  //Получил селекторы с иминемБ информацией и аватаром
+  //Получил селекторы с имeнем,информацией и аватаром
   constructor({ userNameSelector, userAboutSelector, avatarSelector }) {
     this.userName = document.querySelector(userNameSelector);
     this.userAbout = document.querySelector(userAboutSelector);
