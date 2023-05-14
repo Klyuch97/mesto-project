@@ -1,4 +1,4 @@
-function 1checkResult(res) {
+function checkResult(res) {
   if (res.ok) {
     return res.json();
   }
