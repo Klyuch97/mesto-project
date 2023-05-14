@@ -1,4 +1,5 @@
 export default class UserInfo {
+  //Получил селекторы с иминемБ информацией и аватаром
   constructor({ userNameSelector, userAboutSelector, avatarSelector }) {
     this.userName = document.querySelector(userNameSelector);
     this.userAbout = document.querySelector(userAboutSelector);
@@ -19,9 +20,5 @@ export default class UserInfo {
     this.userAbout.textContent = data.about;
     this.avatar.src = data.avatar;
   };
-  getMyId() {
-    //console.log(this._myId);
-    return this._myId;
-  }
 }
 

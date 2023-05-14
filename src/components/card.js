@@ -106,10 +106,10 @@ export default class Card {
       if (this._arrayLikes[i]._id === this._myId) {
         this.buttonLike.classList.add('element__button_active')
       }
-      this.deleteButtom = this.element.querySelector('.element__button-trash');
-  if (this._myId !== this._ownerId) {
-    this.deleteButtom.style.display = "none";
-  }
+    this.deleteButtom = this.element.querySelector('.element__button-trash');
+    if (this._myId !== this._ownerId) {
+      this.deleteButtom.style.display = "none";
+    }
 
 
     return this.element;
