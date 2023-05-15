@@ -66,13 +66,13 @@ const popupImage = popupOpenCard.querySelector('.popup__image');
 export default class Card {
   constructor(data, selector, handleCardClick, handleLikeClick, myId) {
     this.data = data,
-      this._name = data.name,
-      this._id = data._id;
+    this._name = data.name,
+    this._id = data._id;
     this._ownerId = data.owner._id;
     this._arrayLikes = data.likes;
     this._myId = myId;
     this._link = data.link,
-      this._selector = selector;
+    this._selector = selector;
     this._handleCardClick = handleCardClick;
     this._handleLikeClick = handleLikeClick;
   }
@@ -118,7 +118,7 @@ export default class Card {
 
   _setEventListeners() {
     this.element.querySelector('.element__image').addEventListener('click', () => {
-      this._handleCardClick(this._name, this._link);
+      this._handleCardClick(this.data);
     });
     this.element.querySelector('.element__button').addEventListener('click', () => {
       this._handleLikeClick(this._name, this._link);

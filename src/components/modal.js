@@ -5,7 +5,7 @@ export const nameProfile = document.querySelector('.profile__info-cell-text');
 export const job = document.querySelector('.profile__info-text');
 
 
-export function openPopup(popup) {
+/*export function openPopup(popup) {
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', closePressEscape);
   popup.addEventListener('click', closeClickOverlay);
@@ -29,6 +29,6 @@ export function closeClickOverlay(evt) {
   if (evt.target === evt.currentTarget) {
     closePopup(evt.target);
   }
-}
+}*/
 
 

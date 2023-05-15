@@ -1,4 +1,4 @@
-export const settings = {
+/*export const settings = {
   form: '.form',
   formNameText: '.form__name-text',
   formButton: '.form__button',
@@ -96,7 +96,7 @@ export const hasInvalidInput = (inputList,settings) => {
     // hasInvalidInput вернёт true
     return !inputElement.validity.valid;
   })
-};
+};*/
 
 
 
