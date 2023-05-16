@@ -37,14 +37,15 @@ export default class Api {
     })
     return res.json();
   }
-  avatarInfoPatch(data) {
-    return fetch(`${this.baseUrl}/users/me/avatar`, {
+  async avatarInfoPatch(data) {
+    const response = await fetch(`${this.baseUrl}/users/me/avatar`, {
       method: 'PATCH',
       headers: this.headers,
       body: JSON.stringify({
-        avatar: data,
+        avatar: data.avatar,
       })
     })
+    return response.json();
   }
 
   async profileInfoPatch(data) {

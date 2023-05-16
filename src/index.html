@@ -72,12 +72,12 @@
           <button class="popup__close popup__close_add_image" type="button" name="popup__close "></button>
           <form class="form form_add-image" name="form">
             <h2 class="form__text">Новое место</h2>
-            <input type="text" class="form__name-text form_name-image" placeholder="Название" name="form__name-text"
+            <input type="text" class="form__name-text form_name-image" placeholder="Название" name="name"
               required minlength="2" max="30" id="addCardInputName" pattern="^[A-Za-zА-Яа-яЁё\s-]+$"
               data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы">
             <span class="addCardInputName-error form__input-error"></span>
             <input type="url" class="form__name-text form_name-image" placeholder="Ссылка на картинку"
-              name="form__name-text" required id="urlImage">
+              name="link" required id="urlImage">
             <span class="urlImage-error form__input-error"></span>
             <button class="form__button form__button__create" type="submit" disabled>Создать</button>
           </form>
@@ -98,7 +98,7 @@
           <form class="form form_edit-avatar" name="form">
             <h2 class="form__text">Обновить аватар</h2>
             <input type="url" class="form__name-text form_avatar" placeholder="Ссылка на новый аватар"
-              name="form__name-text" required id="editAvatar">
+              name="avatar" required id="editAvatar">
             <span class="editAvatar-error form__input-error"></span>
             <button class="form__button form__button-edit-avatar" type="submit" disabled>Сохранить</button>
           </form>

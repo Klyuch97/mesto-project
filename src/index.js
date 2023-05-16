@@ -35,6 +35,7 @@ const popupAddImage = document.querySelector('.popup_add_image');
 const popupOpenCard = document.querySelector('.popup_open-card');
 const popupTextImage = popupOpenCard.querySelector('.popup__text-image');
 const popupImage = popupOpenCard.querySelector('.popup__image');
+const deleteButtom = document.querySelector('.element__button-trash');
 
 /*function editAvatarInfo(avatar, name, about) {
   document.querySelector('.profile__info-cell-text').textContent = name
@@ -119,37 +120,31 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
   .then(([userData, cardsData]) => {
     let myId = userData._id;
     userInfoDefault.setUserInfo(userData);
-
+    const createCard = (data) => {
+      const card = new Card(
+        data,
+        '#templateElements',
+        handleCardClick,
+        handleLikeClick,
+        handleDeleteCard,
+        //myId,
+      );
+      return card.generateCard();
+    };
+    let cardList = new Section(
+      {
+        items: [],
+        renderer: createCard,
+      },
+      '.elements'
+    )
     cardList.renderItems(cardsData);
-    /* cardsData.forEach(function (result) {
-       const card = createCard(result.name, result.link,
-         result._id, result.owner._id, result.likes, myId);
-       const elementList = document.querySelector('s');
-       elementList.append(card)
-     })*/
   })
   .catch((err) => {
     console.log(err); // выводим ошибку в консоль
   });
 
-const createCard = (data) => {
-  const card = new Card(
-    data,
-    '#templateElements',
-    handleCardClick,
-    handleLikeClick,
-    //myId,
-  );
-  return card.generateCard();
-}
 
-let cardList = new Section(
-  {
-    items: [],
-    renderer: createCard,
-  },
-  '.elements'
-);
 
 const popupWithImage = new PopupWithImage(".popup_open-card");
 popupWithImage.setEventListeners();
@@ -182,6 +177,14 @@ function handleLikeClick() {
   };*/
 }
 
+function handleDeleteCard() {
+  const element = this.deleteButtom.closest('.element');
+  api.deleteCardServer(element.dataset.id = this._id)
+    .then(() => {
+      element.remove();
+    })
+}
+
 let userInfoDefault = new UserInfo({
   userNameSelector: ".profile__info-cell-text",
   userAboutSelector: ".profile__info-text",
@@ -193,7 +196,6 @@ function editAvatarInfo(data) {
     .then((res) => {
       userInfoDefault.setUserInfo(res);
       addAvatar.close();
-      console.log(1);
     })
 }
 
@@ -226,7 +228,14 @@ buttonOpenEditProfilePopup.addEventListener("click", () => {
 })
 
 editProfile.setEventListeners();
-function addCard() { };
+
+function addCard(data) {
+  api.addCardServerPost(data)
+    .then((res) => {
+      cardList.renderItems(res);
+      addCardPopup.close();
+    })
+};
 const addCardPopup = new PopupWithForm(
   '.popup_add_image'
   , addCard);
