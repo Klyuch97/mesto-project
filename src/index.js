@@ -13,7 +13,6 @@ import PopupWithForm from './components/PopupWithForm.js';
 
 const buttonOpenEditProfilePopup = document.querySelector('.profile__info-cell-button');
 const popupEdifProfile = document.querySelector('.popup_edit-profile');
-const nameInput = document.querySelector('.form__name-text');
 const jobInput = document.querySelector('input:nth-of-type(2)');
 const buttonOpenAddCardPopup = document.querySelector('.profile__button');
 const formAddImage = document.querySelector('.form_add-image');
@@ -119,29 +118,8 @@ const api = new Api({
 Promise.all([api.getUserInfo(), api.getInitialCards()])
   .then(([userData, cardsData]) => {
     let myId = userData._id;
-    /*let myAbout = userData.about;
-    let myAvatar = userData.avatar;
-    let myName = userData.name;
-    editAvatarInfo(myAvatar, myName, myAbout);*/
-    UserInfoDefault.setUserInfo(userData);
-    const createCard = (data) => {
-      const card = new Card(
-        data,
-        '#templateElements',
-        handleCardClick,
-        handleLikeClick,
-        myId,
-      );
-      return card.generateCard();
-    }
+    userInfoDefault.setUserInfo(userData);
 
-    let cardList = new Section(
-      {
-        items: [],
-        renderer: createCard,
-      },
-      '.elements'
-    );
     cardList.renderItems(cardsData);
     /* cardsData.forEach(function (result) {
        const card = createCard(result.name, result.link,
@@ -154,6 +132,24 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
     console.log(err); // выводим ошибку в консоль
   });
 
+const createCard = (data) => {
+  const card = new Card(
+    data,
+    '#templateElements',
+    handleCardClick,
+    handleLikeClick,
+    //myId,
+  );
+  return card.generateCard();
+}
+
+let cardList = new Section(
+  {
+    items: [],
+    renderer: createCard,
+  },
+  '.elements'
+);
 
 const popupWithImage = new PopupWithImage(".popup_open-card");
 popupWithImage.setEventListeners();
@@ -186,17 +182,18 @@ function handleLikeClick() {
   };*/
 }
 
-let UserInfoDefault = new UserInfo({
+let userInfoDefault = new UserInfo({
   userNameSelector: ".profile__info-cell-text",
   userAboutSelector: ".profile__info-text",
   avatarSelector: ".profile__image",
 })
 
-function editAvatarInfo() {
+function editAvatarInfo(data) {
   api.avatarInfoPatch(data)
     .then((res) => {
-      UserInfo.setUserInfo(data);
+      userInfoDefault.setUserInfo(res);
       addAvatar.close();
+      console.log(1);
     })
 }
 
@@ -212,7 +209,12 @@ buttonEditAvatar.addEventListener("click", () => {
   addAvatar.open();
 })
 
-function editProfileInfo() {
+function editProfileInfo(data) {
+  api.profileInfoPatch(data)
+    .then((res) => {
+      userInfoDefault.setUserInfo(res);
+      editProfile.close();
+    })
 };
 
 const editProfile = new PopupWithForm(
@@ -237,7 +239,7 @@ const validatorAvatarPopup = new FormValidator(settings, popupEditAvatar);
 validatorAvatarPopup.enableValidation();
 const validatorUserInfo = new FormValidator(settings, popupEdifProfile);
 validatorUserInfo.enableValidation();
-const validatorAddPopup= new FormValidator(settings,popupAddImage);
+const validatorAddPopup = new FormValidator(settings, popupAddImage);
 validatorAddPopup.enableValidation();
 
 /*export function submitEditProfileForm(evt) {

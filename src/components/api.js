@@ -42,13 +42,13 @@ export default class Api {
       method: 'PATCH',
       headers: this.headers,
       body: JSON.stringify({
-        avatar: data.avatar
+        avatar: data,
       })
     })
   }
 
-  profileInfoPatch(data) {
-    return fetch(`${this.baseUrl}/users/me`, {
+  async profileInfoPatch(data) {
+    const res = await fetch(`${this.baseUrl}/users/me`, {
       method: 'PATCH',
       headers: this.headers,
       body: JSON.stringify({
@@ -56,6 +56,7 @@ export default class Api {
         about: data.about,
       })
     })
+    return res.json();
   }
   deleteCardServer(id) {
     return fetch(`${this.baseUrl}/cards/${id}`, {

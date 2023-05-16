@@ -61,8 +61,7 @@ export default class FormValidator {
     this._inputList.forEach((inputElement) => {
       // каждому полю добавим обработчик события input
       inputElement.addEventListener('input', () => {
-        // Внутри колбэка вызовем isValid,
-        // передав ей форму и проверяемый элемент
+        // Внутри колбэка вызовем isValid
         this._isValid(inputElement);
         this._toggleButtonState(this._inputList);
       });
@@ -80,15 +79,6 @@ export default class FormValidator {
   }
 
   enableValidation() {
-    // Найдём все формы с указанным классом в DOM,
-    // сделаем из них массив методом Array.from
-    this._formList = Array.from(document.querySelectorAll(this._popupForm));
-
-    // Переберём полученную коллекцию
-    this._formList.forEach((formElement) => {
-      // Для каждой формы вызовем функцию setEventListeners,
-      // передав ей элемент формы
-      this._setEventListeners();
-    });
+   this._setEventListeners();
   };
 }
