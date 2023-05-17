@@ -9,6 +9,7 @@ export default class FormValidator {
     this._formButtonDisabled = settings.formButtonDisabled;
     this._buttonSubmit = this._form.querySelector(this._formButton);
   }
+  //добавить класс ошибки
   _showInputError(inputElement, errorMessage) {
 
     const formError = this._form.querySelector(`.${inputElement.id}-error`);
@@ -16,13 +17,14 @@ export default class FormValidator {
     inputElement.classList.add(this._formNameTextTypeError);
     formError.classList.add(this._formInputErrorActive);
   }
-
+  //удалить класс ошибки
   _hideInputError(inputElement) {
     const formError = this._form.querySelector(`.${inputElement.id}-error`);
     formError.textContent = '';
     inputElement.classList.remove(this._formNameTextTypeError);
     formError.classList.remove(this._formInputErrorActive);
   }
+
   _isValid(inputElement) {
     if (inputElement.validity.patternMismatch) {
       // данные атрибута доступны у элемента инпута через ключевое слово dataset.
@@ -33,13 +35,13 @@ export default class FormValidator {
     }
     if (!inputElement.validity.valid) {
       // Если поле не проходит валидацию, покажем ошибку
-      this._showInputError(inputElement,inputElement.validationMessage);
+      this._showInputError(inputElement, inputElement.validationMessage);
     } else {
       // Если проходит, скроем
       this._hideInputError(inputElement);
     }
   };
-
+  //отображение кнопки сабмита
   _toggleButtonState(inputList) {
     if (this._hasInvalidInput(inputList)) {
       // сделай кнопку неактивной
@@ -77,8 +79,12 @@ export default class FormValidator {
       return !inputElement.validity.valid;
     })
   }
-
+// отключить кнопку сабмит
+  resetButton(){
+    this._buttonSubmit.classList.add(this._formButtonDisabled);
+  }
+  //функция валидации
   enableValidation() {
-   this._setEventListeners();
+    this._setEventListeners();
   };
 }

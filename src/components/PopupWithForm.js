@@ -10,7 +10,7 @@ export default class PopupWithForm extends Popup {
     this._buttonTextStandart = this._buttonSave.textContent;
 
   }
-
+//получить значения инпута
   _getInputValues() {
     this.inputValue = {};
     this._input.forEach((input) => {
@@ -18,12 +18,14 @@ export default class PopupWithForm extends Popup {
     });
     return this.inputValue;
   }
-
-  show(data) {
+//наполнить инпут данными
+  showInputValue(data) {
     this._input.forEach((input) => {
       input.value = data[input.name];
     })
   }
+
+  //функция отображения текста во время загрузки на сервер
   renderLoading(isLoading) {
     if (isLoading) {
       this._buttonSave.textContent = 'Сохранение';
@@ -32,7 +34,7 @@ export default class PopupWithForm extends Popup {
       this._buttonSave.textContent = this._buttonTextStandart;
     }
   }
-
+//навесить слушатели
   setEventListeners() {
     super.setEventListeners();
     this._form.addEventListener('submit', (evt) => {
@@ -40,7 +42,7 @@ export default class PopupWithForm extends Popup {
       this._formSubmit(this._getInputValues());
     })
   }
-
+//функция сброса формы и закрытия попапа
   close() {
     this._form.reset();
     super.close();

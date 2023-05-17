@@ -1,35 +1,16 @@
 import '../src/index.css';
-import Api from "./components/api.js";
 import FormValidator from './components/FormValidator.js';
-import { settings } from './components/utils.js';
 import Card from "./components/card.js";
 import Section from "./components/section.js";
 import UserInfo from './components/userinfo.js';
 import PopupWithImage from './components/PopupWithImage.js';
 import PopupWithForm from './components/PopupWithForm.js';
+import {
+  buttonOpenEditProfilePopup, popupEdifProfile, buttonOpenAddCardPopup, api,
+  buttonEditAvatar, popupEditAvatar, popupAddImage, popupNameImage, popupImage, settings
+} from './components/utils.js';
 
-
-const buttonOpenEditProfilePopup = document.querySelector('.profile__info-cell-button');
-const popupEdifProfile = document.querySelector('.popup_edit-profile');
-const buttonOpenAddCardPopup = document.querySelector('.profile__button');
-const buttonEditAvatar = document.querySelector('.profile__edit-avatar-button');
-const popupEditAvatar = document.querySelector('.popup_edit-avatar');
-const popupAddImage = document.querySelector('.popup_add_image');
-const popupOpenCard = document.querySelector('.popup_open-card');
-const popupTextImage = popupOpenCard.querySelector('.popup__text-image');
-const popupImage = popupOpenCard.querySelector('.popup__image');
-
-
-const api = new Api({
-  baseUrl: "https://nomoreparties.co/v1/plus-cohort-23/",
-  headers: {
-    authorization: "70b0f800-c3d5-43c3-9a38-db0198e51959",
-    "content-Type": "application/json",
-  },
-});
-
-
-
+//получить ответ с данными пользователя и карточками и отобразить их
 Promise.all([api.getUserInfo(), api.getInitialCards()])
   .then(([userData, cardsData]) => {
     userInfoDefault.setUserInfo(userData);
@@ -50,6 +31,7 @@ const createCard = (data) => {
   );
   return card.generateCard();
 };
+//экземпляр секции для отображения карточек
 let cardList = new Section(
   {
     items: [],
@@ -57,21 +39,19 @@ let cardList = new Section(
   },
   '.elements'
 )
-
+//экземпляр для секции информации о юзере
 let userInfoDefault = new UserInfo({
   userNameSelector: ".profile__info-cell-text",
   userAboutSelector: ".profile__info-text",
   avatarSelector: ".profile__image",
 })
 
-
-
 const popupWithImage = new PopupWithImage(".popup_open-card");
 popupWithImage.setEventListeners();
 
 function handleCardClick(data) {
   popupImage.src = this._link;
-  popupTextImage.textContent = this._name;
+  popupNameImage.textContent = this._name;
   popupWithImage.open(data);
 }
 
@@ -95,7 +75,6 @@ function handleDeleteCard() {
       element.remove();
     })
 }
-
 
 
 function editAvatarInfo(data) {
@@ -123,6 +102,7 @@ addAvatar.setEventListeners();
 
 buttonEditAvatar.addEventListener("click", () => {
   addAvatar.open();
+  validatorAvatarPopup.resetButton();
 })
 
 function editProfileInfo(data) {
@@ -145,8 +125,9 @@ const editProfile = new PopupWithForm(
   editProfileInfo
 )
 buttonOpenEditProfilePopup.addEventListener("click", () => {
+  editProfile.showInputValue(userInfoDefault.getUserInfo());
+  validatorUserInfo.resetButton();
   editProfile.open();
-  editProfile.show(userInfoDefault.getUserInfo());
 })
 
 editProfile.setEventListeners();
@@ -169,6 +150,7 @@ const addCardPopup = new PopupWithForm(
   '.popup_add_image'
   , addCard);
 buttonOpenAddCardPopup.addEventListener('click', () => {
+  validatorAddPopup.resetButton();
   addCardPopup.open();
 })
 addCardPopup.setEventListeners();
