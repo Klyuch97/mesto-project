@@ -1,19 +1,13 @@
-import { closePopup, openPopup } from "./modal.js";
-import { deleteCardServer, likePutServer, likeDeleteServer } from "./api.js";
-const popupOpenCard = document.querySelector('.popup_open-card');
-const popupTextImage = popupOpenCard.querySelector('.popup__text-image');
-const popupImage = popupOpenCard.querySelector('.popup__image');
-
 export default class Card {
   constructor(data, selector, handleCardClick, handleLikeClick, handleDeleteCard, myId) {
     this.data = data,
-      this._name = data.name,
-      this._id = data._id;
+    this._name = data.name,
+    this._id = data._id;
     this._ownerId = data.owner._id;
     this._arrayLikes = data.likes;
     this._myId = myId;
     this._link = data.link,
-      this._selector = selector;
+    this._selector = selector;
     this._handleCardClick = handleCardClick;
     this._handleLikeClick = handleLikeClick;
     this._handleDeleteCard = handleDeleteCard;
@@ -48,9 +42,9 @@ export default class Card {
       if (this._arrayLikes[i]._id === this._myId) {
         this.buttonLike.classList.add('element__button_active')
       }
-    this.deleteButtom = this.element.querySelector('.element__button-trash');
+    this.deleteButton = this.element.querySelector('.element__button-trash');
     if (this._myId !== this._ownerId) {
-      this.deleteButtom.style.display = "none";
+      this.deleteButton.style.display = "none";
     }
 
 
@@ -66,7 +60,7 @@ export default class Card {
       this._handleLikeClick(this._name, this._link);
     });
     this.element.querySelector('.element__button-trash').addEventListener('click', () => {
-     this._handleDeleteCard(this._name, this._link);
+      this._handleDeleteCard(this._name, this._link);
     })
   }
 }

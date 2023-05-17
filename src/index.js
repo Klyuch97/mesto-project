@@ -1,5 +1,4 @@
 import '../src/index.css';
-//import { openPopup, closePopup } from "./components/modal.js";
 import Api from "./components/api.js";
 import FormValidator from './components/FormValidator.js';
 import { settings } from './components/utils.js';
@@ -12,29 +11,13 @@ import PopupWithForm from './components/PopupWithForm.js';
 
 const buttonOpenEditProfilePopup = document.querySelector('.profile__info-cell-button');
 const popupEdifProfile = document.querySelector('.popup_edit-profile');
-const jobInput = document.querySelector('input:nth-of-type(2)');
 const buttonOpenAddCardPopup = document.querySelector('.profile__button');
-const formAddImage = document.querySelector('.form_add-image');
-const nameProfile = document.querySelector('.profile__info-cell-text');
-const job = document.querySelector('.profile__info-text');
-const formElement = document.querySelector('.form');
 const buttonEditAvatar = document.querySelector('.profile__edit-avatar-button');
 const popupEditAvatar = document.querySelector('.popup_edit-avatar');
-const formEditAvatar = document.querySelector('.form_edit-avatar')
-const linkAvatar = document.querySelector('.form_avatar');
-const closeButtons = document.querySelectorAll('.popup__close');
-export const buttonElementCreate = document.querySelector('.form__button__create');
-const buttonEditAvatarSave = document.querySelector('.form__button-edit-avatar');
-export const buttonSaveProfile = document.querySelector('.form__button');
-export const buttonSaveAvatar = document.querySelector('.form__button-edit-avatar');
-const nameInputImage = formAddImage.querySelector('.form_name-image');
-const linkInputImage = formAddImage.querySelector('input:nth-of-type(2)');
-const elementList = document.querySelector('.elements');
 const popupAddImage = document.querySelector('.popup_add_image');
 const popupOpenCard = document.querySelector('.popup_open-card');
 const popupTextImage = popupOpenCard.querySelector('.popup__text-image');
 const popupImage = popupOpenCard.querySelector('.popup__image');
-const deleteButtom = document.querySelector('.element__button-trash');
 
 
 const api = new Api({
@@ -106,7 +89,7 @@ function handleLikeClick() {
 }
 
 function handleDeleteCard() {
-  const element = this.deleteButtom.closest('.element');
+  const element = this.deleteButton.closest('.element');
   api.deleteCardServer(element.dataset.id = this._id)
     .then(() => {
       element.remove();
@@ -137,7 +120,7 @@ const addAvatar = new PopupWithForm(
 addAvatar.setEventListeners();
 
 
-// клик на аватар,открыть попап
+
 buttonEditAvatar.addEventListener("click", () => {
   addAvatar.open();
 })
