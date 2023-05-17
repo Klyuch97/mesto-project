@@ -17,13 +17,13 @@ export default class Api {
     return fetch(`${this.baseUrl}/cards`, {
       headers: this.headers,
     })
-      .then(this.checkResult)
+    .then(this.checkResult)
   }
-  getUserInfo() {
-    return fetch(`${this.baseUrl}/users/me`, {
+ async getUserInfo() {
+    const res= await fetch(`${this.baseUrl}/users/me`, {
       headers: this.headers,
     })
-      .then(this.checkResult)
+    return res.json();
   }
 
   async addCardServerPost(data) {

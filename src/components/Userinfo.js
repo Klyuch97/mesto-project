@@ -20,5 +20,9 @@ export default class UserInfo {
     this.userAbout.textContent = data.about;
     this.avatar.src = data.avatar;
   };
+
+  myId(){
+    return this._myId;
+  }
 }
 

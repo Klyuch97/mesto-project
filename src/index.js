@@ -7,7 +7,6 @@ import Card from "./components/card.js";
 import Section from "./components/section.js";
 import UserInfo from './components/userinfo.js';
 import PopupWithImage from './components/PopupWithImage.js';
-import Popup from './components/Popup';
 import PopupWithForm from './components/PopupWithForm.js';
 
 
@@ -116,33 +115,41 @@ const api = new Api({
   },
 });
 
+
+
 Promise.all([api.getUserInfo(), api.getInitialCards()])
   .then(([userData, cardsData]) => {
-    let myId = userData._id;
     userInfoDefault.setUserInfo(userData);
-    const createCard = (data) => {
-      const card = new Card(
-        data,
-        '#templateElements',
-        handleCardClick,
-        handleLikeClick,
-        handleDeleteCard,
-        //myId,
-      );
-      return card.generateCard();
-    };
-    let cardList = new Section(
-      {
-        items: [],
-        renderer: createCard,
-      },
-      '.elements'
-    )
-    cardList.renderItems(cardsData);
+cardList.renderItems(cardsData.reverse());
   })
   .catch((err) => {
     console.log(err); // выводим ошибку в консоль
   });
+
+  const createCard = (data) => {
+    const card = new Card(
+      data,
+      '#templateElements',
+      handleCardClick,
+      handleLikeClick,
+      handleDeleteCard,
+      userInfoDefault._myId,
+    );
+    return card.generateCard();
+  };
+  let cardList = new Section(
+    {
+      items: [],
+      renderer: createCard,
+    },
+    '.elements'
+  )
+
+  let userInfoDefault = new UserInfo({
+    userNameSelector: ".profile__info-cell-text",
+    userAboutSelector: ".profile__info-text",
+    avatarSelector: ".profile__image",
+  })
 
 
 
@@ -166,15 +173,6 @@ function handleLikeClick() {
     api.likeDeleteServer(this.buttonLike.dataset.id = this._id)
       .then(() => { this.likesNumber.textContent--; })
   };
-
-  /*if (event.target.classList.toggle('element__button_active')) {
-    likePutServer(buttonLike.dataset.id = id)
-      .then(() => { event.target.nextElementSibling.textContent++; })
-  }
-  else {
-    likeDeleteServer(buttonLike.dataset.id = id)
-      .then(() => { event.target.nextElementSibling.textContent--; })
-  };*/
 }
 
 function handleDeleteCard() {
@@ -185,11 +183,7 @@ function handleDeleteCard() {
     })
 }
 
-let userInfoDefault = new UserInfo({
-  userNameSelector: ".profile__info-cell-text",
-  userAboutSelector: ".profile__info-text",
-  avatarSelector: ".profile__image",
-})
+
 
 function editAvatarInfo(data) {
   api.avatarInfoPatch(data)
@@ -232,7 +226,7 @@ editProfile.setEventListeners();
 function addCard(data) {
   api.addCardServerPost(data)
     .then((res) => {
-      cardList.renderItems(res);
+      cardList.setItem(createCard(res));
       addCardPopup.close();
     })
 };
