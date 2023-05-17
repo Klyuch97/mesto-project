@@ -36,76 +36,6 @@ const popupTextImage = popupOpenCard.querySelector('.popup__text-image');
 const popupImage = popupOpenCard.querySelector('.popup__image');
 const deleteButtom = document.querySelector('.element__button-trash');
 
-/*function editAvatarInfo(avatar, name, about) {
-  document.querySelector('.profile__info-cell-text').textContent = name
-  document.querySelector('.profile__info-text').textContent = about
-  document.querySelector('.profile__image').src = avatar
-}
-
-function toggleButton(settings, button) {
-  button.disabled = true;
-  button.classList.add(settings.formButtonDisabled);
-}
-
-buttonOpenEditProfilePopup.addEventListener('click', function () {
-  openPopup(popupEdifProfile);
-  nameInput.value = nameProfile.textContent;
-  jobInput.value = job.textContent;
-});
-
-buttonOpenAddCardPopup.addEventListener('click', function () {
-  formAddImage.reset();
-  openPopup(popupAddImage);
-  toggleButton(settings, buttonElementCreate);
-});
-buttonEditAvatar.addEventListener('click', function () {
-  formEditAvatar.reset();
-  toggleButton(settings, buttonEditAvatarSave);
-  openPopup(popupEditAvatar);
-});*/
-
-/*closeButtons.forEach((button) => {
-  // находим 1 раз ближайший к крестику попап
-  const popup = button.closest('.popup');
-  // устанавливаем обработчик закрытия на крестик
-//  button.addEventListener('click', () => closePopup(popup));
-});*/
-
-
-//formAddImage.addEventListener('submit', addCard);
-
-/*function editAvatar(evt) {
-  evt.preventDefault();
-  renderLoading(true, buttonSaveAvatar);
-  avatarInfoPatch({ avatar: linkAvatar.value })
-    .then(data => {
-      const avatar = document.querySelector('.profile__image');
-      const linkAvatarValue = linkAvatar.value
-      avatar.src = linkAvatarValue;
-      closePopup(popupEditAvatar);
-    })
-    //Здесь вносим изменения в DOM, например меняем текст профиля и закрываем модальное окно.
-    .catch((err) => {
-      console.log(err); // выводим ошибку в консоль
-    })
-    .finally(() => {
-      renderLoading(false, buttonSaveAvatar);
-    })
-}
-
-formEditAvatar.addEventListener('submit', editAvatar);
-
-export function renderLoading(isLoading, button) {
-  if (isLoading) {
-    button.textContent = 'Сохранение';
-  }
-  else {
-    button.textContent = 'Сохранить';
-    buttonElementCreate.textContent = 'Создать';
-  }
-}
-
-enableValidation(settings);*/
 
 const api = new Api({
   baseUrl: "https://nomoreparties.co/v1/plus-cohort-23/",
@@ -120,36 +50,36 @@ const api = new Api({
 Promise.all([api.getUserInfo(), api.getInitialCards()])
   .then(([userData, cardsData]) => {
     userInfoDefault.setUserInfo(userData);
-cardList.renderItems(cardsData.reverse());
+    cardList.renderItems(cardsData.reverse());
   })
   .catch((err) => {
     console.log(err); // выводим ошибку в консоль
   });
 
-  const createCard = (data) => {
-    const card = new Card(
-      data,
-      '#templateElements',
-      handleCardClick,
-      handleLikeClick,
-      handleDeleteCard,
-      userInfoDefault._myId,
-    );
-    return card.generateCard();
-  };
-  let cardList = new Section(
-    {
-      items: [],
-      renderer: createCard,
-    },
-    '.elements'
-  )
+const createCard = (data) => {
+  const card = new Card(
+    data,
+    '#templateElements',
+    handleCardClick,
+    handleLikeClick,
+    handleDeleteCard,
+    userInfoDefault._myId,
+  );
+  return card.generateCard();
+};
+let cardList = new Section(
+  {
+    items: [],
+    renderer: createCard,
+  },
+  '.elements'
+)
 
-  let userInfoDefault = new UserInfo({
-    userNameSelector: ".profile__info-cell-text",
-    userAboutSelector: ".profile__info-text",
-    avatarSelector: ".profile__image",
-  })
+let userInfoDefault = new UserInfo({
+  userNameSelector: ".profile__info-cell-text",
+  userAboutSelector: ".profile__info-text",
+  avatarSelector: ".profile__image",
+})
 
 
 
@@ -186,10 +116,17 @@ function handleDeleteCard() {
 
 
 function editAvatarInfo(data) {
+  addAvatar.renderLoading(true)
   api.avatarInfoPatch(data)
     .then((res) => {
       userInfoDefault.setUserInfo(res);
       addAvatar.close();
+    })
+    .catch((err) => {
+      console.log(err); // выводим ошибку в консоль
+    })
+    .finally(() => {
+      addAvatar.renderLoading(false);
     })
 }
 
@@ -206,10 +143,17 @@ buttonEditAvatar.addEventListener("click", () => {
 })
 
 function editProfileInfo(data) {
+  editProfile.renderLoading(true);
   api.profileInfoPatch(data)
     .then((res) => {
       userInfoDefault.setUserInfo(res);
       editProfile.close();
+    })
+    .catch((err) => {
+      console.log(err); // выводим ошибку в консоль
+    })
+    .finally(() => {
+      editProfile.renderLoading(false);
     })
 };
 
@@ -219,15 +163,23 @@ const editProfile = new PopupWithForm(
 )
 buttonOpenEditProfilePopup.addEventListener("click", () => {
   editProfile.open();
+  editProfile.show(userInfoDefault.getUserInfo());
 })
 
 editProfile.setEventListeners();
 
 function addCard(data) {
+  addCardPopup.renderLoading(true);
   api.addCardServerPost(data)
     .then((res) => {
       cardList.setItem(createCard(res));
       addCardPopup.close();
+    })
+    .catch((err) => {
+      console.log(err); // выводим ошибку в консоль
+    })
+    .finally(() => {
+      addCardPopup.renderLoading(false);
     })
 };
 const addCardPopup = new PopupWithForm(
@@ -245,49 +197,7 @@ validatorUserInfo.enableValidation();
 const validatorAddPopup = new FormValidator(settings, popupAddImage);
 validatorAddPopup.enableValidation();
 
-/*export function submitEditProfileForm(evt) {
-  evt.preventDefault();
-  const popupEdifProfile = document.querySelector('.popup_edit-profile');
-  const buttonSaveProfile = document.querySelector('.form__button');
-  const nameInput = document.querySelector('.form__name-text');
-  const jobInput = document.querySelector('input:nth-of-type(2)');
-  const nameProfile = document.querySelector('.profile__info-cell-text');
-  const job = document.querySelector('.profile__info-text');
-  renderLoading(true, buttonSaveProfile);
-  profileInfoPatch({ name: nameInput.value, about: jobInput.value })
-    .then(data => {
-      nameProfile.textContent = nameInput.value;
-      job.textContent = jobInput.value;
-      closePopup(popupEdifProfile);
-    })
-    //Здесь вносим изменения в DOM, например меняем текст профиля и закрываем модальное окно.
-    .catch((err) => {
-      console.log(err); // выводим ошибку в консоль
-    })
-    .finally(() => {
-      renderLoading(false, buttonSaveProfile);
-    })
-}
 
-formElement.addEventListener('submit', submitEditProfileForm);
-
-/*export function addCard(evt) {
-  evt.preventDefault();
-  renderLoading(true, buttonElementCreate);
-  addCardServerPost({ name: nameInputImage.value, link: linkInputImage.value })
-    .then(data => {
-      const card = createCard(data.name, data.link,
-        data._id, data.owner._id, data.likes, data.owner._id);
-      elementList.prepend(card);
-    })
-    .catch((err) => {
-      console.log(err); // выводим ошибку в консоль
-    })
-    .finally(() => {
-      renderLoading(false, buttonElementCreate)
-      closePopup(popupAddImage);
-    })
-}*/
 
 
 
