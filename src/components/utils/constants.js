@@ -31,5 +31,8 @@ export const cardConfig = {
   cardNameTextSelector: '.element__text',
   removeButtonSelector: '.element__button-trash'
 }
-
-
+export const indexPageConfig = {
+  editProfileSelector: '.popup_edit-profile',
+  addImageSelector: '.popup_add_image',
+  editAvatarSelector: '.popup_edit-avatar',
+}

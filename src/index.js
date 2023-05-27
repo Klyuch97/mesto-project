@@ -5,7 +5,7 @@ import { PopupWithForm } from './components/Popups/PopupWithForm';
 import { Api } from './components/api.js';
 import { ValidationService } from './components/Validation/ValidationService.js';
 import { UserInfo } from './components/UserInfo.js';
-import { apiConfig, validatorSettings, userInfoSettings, cardSectionConfig } from './components/utils/constants.js';
+import { apiConfig, validatorSettings, userInfoSettings, cardSectionConfig, indexPageConfig } from './components/utils/constants.js';
 import { CardSection } from "./components/Sections/CardSection/CardSection.js";
 import { PopupManager } from './components/Popups/PopupManager.js';
 import { NodeFactory } from './components/utils/utils.js';
@@ -25,12 +25,6 @@ class IndexPagePresenter {
     //profile
     this._buttonOpenEditProfilePopup = document.querySelector('.profile__info-cell-button');
 
-    //popups
-    this._editProfileSelector = '.popup_edit-profile';
-    this._addImageSelector = '.popup_add_image';
-    this._editAvatarSelector = '.popup_edit-avatar';
-
-    ///
     this._buttonAddCard = document.querySelector('.profile__button');
     this._buttonEditAvatar = document.querySelector('.profile__edit-avatar-button');
     this._buttonEditAvatarSave = document.querySelector('.form__button-edit-avatar');
@@ -56,18 +50,18 @@ class IndexPagePresenter {
       });
   }
   _initializeCommands() {
-    popupManagerSingleton.initializePopup(this._editProfileSelector, (data) => this._submitEditProfileForm(data));
-    popupManagerSingleton.initializePopup(this._addImageSelector, (data) => this._addCard(data));
-    popupManagerSingleton.initializePopup(this._editAvatarSelector, (data) => this._editAvatar(data));
+    popupManagerSingleton.initializePopup(indexPageConfig.editProfileSelector, (data) => this._submitEditProfileForm(data));
+    popupManagerSingleton.initializePopup(indexPageConfig.addImageSelector, (data) => this._addCard(data));
+    popupManagerSingleton.initializePopup(indexPageConfig.editAvatarSelector, (data) => this._editAvatar(data));
 
     this._buttonOpenEditProfilePopup.addEventListener('click', () => {
-      popupManagerSingleton.getPopupBySelector(this._editProfileSelector).open(profileInfo.getUserInfo())
+      popupManagerSingleton.getPopupBySelector(indexPageConfig.editProfileSelector).open(profileInfo.getUserInfo())
     });
     this._buttonAddCard.addEventListener('click', () => {
-      popupManagerSingleton.getPopupBySelector(this._addImageSelector).open()
+      popupManagerSingleton.getPopupBySelector(indexPageConfig.addImageSelector).open()
     });
     this._buttonEditAvatar.addEventListener('click', () => {
-      popupManagerSingleton.getPopupBySelector(this._editAvatarSelector).open(profileInfo.getUserInfo())
+      popupManagerSingleton.getPopupBySelector(indexPageConfig.editAvatarSelector).open(profileInfo.getUserInfo())
     });
   }
   _editAvatar(data) {
@@ -76,12 +70,12 @@ class IndexPagePresenter {
         profileInfo.setUserInfo(data);
       })
       .then(() => {
-        popupManagerSingleton.getPopupBySelector(this._editAvatarSelector).close();
+        popupManagerSingleton.getPopupBySelector(indexPageConfig.editAvatarSelector).close();
       })
       .catch((err) => {
         console.log(err);
       }).finally(() => {
-        popupManagerSingleton.getPopupBySelector(this._editAvatarSelector).renderLoading(false);
+        popupManagerSingleton.getPopupBySelector(indexPageConfig.editAvatarSelector).renderLoading(false);
       })
   }
 
@@ -91,26 +85,26 @@ class IndexPagePresenter {
         profileInfo.setUserInfo(data);
       })
       .then(() => {
-        popupManagerSingleton.getPopupBySelector(this._editProfileSelector).close();
+        popupManagerSingleton.getPopupBySelector(indexPageConfig.editProfileSelector).close();
       })
       .catch((err) => {
         console.log(err);
       }).finally(() => {
 
-        popupManagerSingleton.getPopupBySelector(this._editProfileSelector).renderLoading(false);
+        popupManagerSingleton.getPopupBySelector(indexPageConfig.editProfileSelector).renderLoading(false);
       })
   }
   _addCard(data) {
     webApi.addCard({ name: data.cardName, link: data.cardUri })
       .then(data => cardSectionSingleton.createCard(data))
       .then(() => {
-        popupManagerSingleton.getPopupBySelector(this._addImageSelector).close();
+        popupManagerSingleton.getPopupBySelector(indexPageConfig.addImageSelector).close();
       })
       .catch((err) => {
         console.log(err);
       }).finally(() => {
 
-        popupManagerSingleton.getPopupBySelector(this._addImageSelector).renderLoading(false);
+        popupManagerSingleton.getPopupBySelector(indexPageConfig.addImageSelector).renderLoading(false);
       })
   }
 }
