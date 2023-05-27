@@ -19,9 +19,6 @@ class nodeFactory {
   }
 };
 
-
-
-
 export const popupManagerSingleton = PopupManager;
 export const cardSectionSingleton = CardSection;
 CardSection.setConfig(cardSectionConfig);
