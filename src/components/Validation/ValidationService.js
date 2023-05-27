@@ -14,7 +14,6 @@ export class ValidationService {
     return this._validatorsCollection.get(form);
   }
   prevalidateForm(form) {
-    console.log(this._validatorsCollection.get(form))
     this._validatorsCollection.get(form).toggleButtonState();
   }
 }
