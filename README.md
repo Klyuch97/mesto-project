@@ -21,3 +21,6 @@
 *  [Ссылка на сайт]( https://klyuch97.github.io/mesto-project/)
 
 
+Артём:
+почта:artemkuznetsov07@gmail.com
+гит: https://github.com/AKuznetsov07
