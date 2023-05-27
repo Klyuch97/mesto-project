@@ -1,6 +1,6 @@
 'use strict';
 import Popup from "./Popup.js";
-import { formsValidationService } from '../utils/utils.js';
+import { formsValidationService } from '../../index.js';
 
 export class PopupWithForm extends Popup {
   constructor(popupSelector, submitFunc) {

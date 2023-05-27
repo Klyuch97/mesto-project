@@ -1,5 +1,5 @@
 'use strict';
-import { webApi, factory, popupManager, profileInfo } from '../../../utils/utils.js';
+import { webApi, factory, popupManager, profileInfo } from '../../../../index.js';
 import { cardConfig } from '../../../utils/constants.js';
 
 export class Card {

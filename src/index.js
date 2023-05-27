@@ -1,6 +1,23 @@
 import '../src/index.css';
 import { PopupWithForm } from './components/Popups/PopupWithForm';
-import { webApi, profileInfo, cardSectionSingleton, formsValidationService, popupManagerSingleton as popupManager } from './components/utils/utils.js';
+//import { webApi, profileInfo, cardSectionSingleton, formsValidationService, popupManagerSingleton as popupManager } from './components/utils/utils.js';
+
+import { Api } from './components/api.js';
+import { ValidationService } from './components/Validation/ValidationService.js';
+import { UserInfo } from './components/UserInfo.js';
+import { apiConfig, validatorSettings, userInfoSettings, cardSectionConfig } from './components/utils/constants.js';
+import { CardSection } from "./components/Sections/CardSection/CardSection.js";
+import { PopupManager } from './components/Popups/PopupManager.js';
+import { NodeFactory } from './components/utils/utils.js';
+
+
+export const popupManagerSingleton = PopupManager;
+export const cardSectionSingleton = CardSection;
+CardSection.setConfig(cardSectionConfig);
+export const profileInfo = new UserInfo(userInfoSettings);
+export const formsValidationService = new ValidationService(validatorSettings);
+export const webApi = new Api(apiConfig);
+export const factory = new NodeFactory();
 
 class IndexPagePresenter {
   constructor() {
@@ -39,18 +56,18 @@ class IndexPagePresenter {
       });
   }
   _initializeCommands() {
-    popupManager.initializePopup(this._editProfileSelector, (data) => this._submitEditProfileForm(data));
-    popupManager.initializePopup(this._addImageSelector, (data) => this._addCard(data));
-    popupManager.initializePopup(this._editAvatarSelector, (data) => this._editAvatar(data));
+    popupManagerSingleton.initializePopup(this._editProfileSelector, (data) => this._submitEditProfileForm(data));
+    popupManagerSingleton.initializePopup(this._addImageSelector, (data) => this._addCard(data));
+    popupManagerSingleton.initializePopup(this._editAvatarSelector, (data) => this._editAvatar(data));
 
     this._buttonOpenEditProfilePopup.addEventListener('click', () => {
-      popupManager.getPopupBySelector(this._editProfileSelector).open(profileInfo.getUserInfo())
+      popupManagerSingleton.getPopupBySelector(this._editProfileSelector).open(profileInfo.getUserInfo())
     });
     this._buttonAddCard.addEventListener('click', () => {
-      popupManager.getPopupBySelector(this._addImageSelector).open()
+      popupManagerSingleton.getPopupBySelector(this._addImageSelector).open()
     });
     this._buttonEditAvatar.addEventListener('click', () => {
-      popupManager.getPopupBySelector(this._editAvatarSelector).open(profileInfo.getUserInfo())
+      popupManagerSingleton.getPopupBySelector(this._editAvatarSelector).open(profileInfo.getUserInfo())
     });
   }
   _editAvatar(data) {
@@ -59,12 +76,12 @@ class IndexPagePresenter {
         profileInfo.setUserInfo(data);
       })
       .then(() => {
-        popupManager.getPopupBySelector(this._editAvatarSelector).close();
+        popupManagerSingleton.getPopupBySelector(this._editAvatarSelector).close();
       })
       .catch((err) => {
         console.log(err);
       }).finally(() => {
-        popupManager.getPopupBySelector(this._editAvatarSelector).renderLoading(false);
+        popupManagerSingleton.getPopupBySelector(this._editAvatarSelector).renderLoading(false);
       })
   }
 
@@ -74,26 +91,26 @@ class IndexPagePresenter {
         profileInfo.setUserInfo(data);
       })
       .then(() => {
-        popupManager.getPopupBySelector(this._editProfileSelector).close();
+        popupManagerSingleton.getPopupBySelector(this._editProfileSelector).close();
       })
       .catch((err) => {
         console.log(err);
       }).finally(() => {
 
-        popupManager.getPopupBySelector(this._editProfileSelector).renderLoading(false);
+        popupManagerSingleton.getPopupBySelector(this._editProfileSelector).renderLoading(false);
       })
   }
   _addCard(data) {
     webApi.addCard({ name: data.cardName, link: data.cardUri })
       .then(data => cardSectionSingleton.createCard(data))
       .then(() => {
-        popupManager.getPopupBySelector(this._addImageSelector).close();
+        popupManagerSingleton.getPopupBySelector(this._addImageSelector).close();
       })
       .catch((err) => {
         console.log(err);
       }).finally(() => {
 
-        popupManager.getPopupBySelector(this._addImageSelector).renderLoading(false);
+        popupManagerSingleton.getPopupBySelector(this._addImageSelector).renderLoading(false);
       })
   }
 }

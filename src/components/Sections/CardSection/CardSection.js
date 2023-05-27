@@ -1,6 +1,6 @@
 'use strict';
 import { Card } from './Cards/Card.js';
-import { webApi, factory, popupManagerSingleton as popupManager, profileInfo } from '../../utils/utils.js';
+import { webApi, factory, popupManagerSingleton as popupManager, profileInfo } from '../../../index.js';
 import { Section } from '../Section.js';
 
 const _viewModel = new Map();//TODO: Дальше нужно вынести в отдельный класс, сделать базовую вм, унаследовать от базы вм для карт,
