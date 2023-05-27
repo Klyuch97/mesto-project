@@ -68,8 +68,4 @@ export default class FormValidator {
       return !inputElement.validity.valid;
     })
   }
-// отключить кнопку сабмит
-  resetButton(){
-    this._submitButton.classList.add(this._settings.formButtonDisabledSelector);
-  }
 }
