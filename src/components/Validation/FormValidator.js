@@ -3,7 +3,7 @@ export default class FormValidator {
     this._settings = settings;
     this._form = form;
 
-    this._inputList = Array.from(form.querySelectorAll(this._settings.formNameText));
+    this._inputLists = Array.from(form.querySelectorAll(this._settings.formNameText));
     this._submitButton = form.querySelector(this._settings.formButton);;
 
     this._setEventListeners();
@@ -43,7 +43,7 @@ export default class FormValidator {
   };
   //отображение кнопки сабмита
   toggleButtonState() {
-    if (this._hasInvalidInput(this._inputList)) {
+    if (this._hasInvalidInput(this._inputLists)) {
       // сделай кнопку неактивной
       this._submitButton.disabled = true;
       this._submitButton.classList.add(this._settings.formButtonDisabled);
@@ -54,17 +54,17 @@ export default class FormValidator {
     }
   }
   _setEventListeners() {
-    this.toggleButtonState(this._inputList);
-    this._inputList.forEach((inputElement) => {
+    this.toggleButtonState(this._inputLists);
+    this._inputLists.forEach((inputElement) => {
       inputElement.addEventListener('input', () => {
         this._isValid(inputElement);
-        this.toggleButtonState(this._inputList);
+        this.toggleButtonState(this._inputLists);
       });
     });
   };
 
   _hasInvalidInput() {
-    return this._inputList.some((inputElement) => {
+    return this._inputLists.some((inputElement) => {
       return !inputElement.validity.valid;
     })
   }
