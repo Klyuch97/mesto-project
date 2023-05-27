@@ -10,7 +10,6 @@ export class PopupWithForm extends Popup {
     this._buttonSave = this._form.querySelector(".form__button");
     this._inputs = Array.from(this._form.querySelectorAll(".form__name-text"));
     this._defaultSubmitText = this._buttonSave.textContent;
-    formsValidationService.handleForm(this._form);
     this.setEventListeners();
   }
 

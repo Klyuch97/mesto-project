@@ -5,12 +5,12 @@ export const userInfoSettings = {
   profileAvatarSelector: ".profile__image"
 }
 export const validatorSettings = {
-  form: '.form',
-  formNameText: '.form__name-text',
-  formButton: '.form__button',
-  formNameTextTypeError: 'form__name-text_type_error',
-  formInputErrorActive: 'form__input-error_active',
-  formButtonDisabled: 'form__button_disabled',
+  formSelector: '.form',
+  formNameTextSelector: '.form__name-text',
+  formButtonSelector: '.form__button',
+  formNameTextTypeErrorSelector: 'form__name-text_type_error',
+  formInputErrorActiveSelector: 'form__input-error_active',
+  formButtonDisabledSelector: 'form__button_disabled',
 };
 export const cardSectionConfig = {
   deleteConfirmationSelector: '.popup_confirm-delete',

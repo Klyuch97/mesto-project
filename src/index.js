@@ -117,8 +117,3 @@ class IndexPagePresenter {
 
 
 const IndexPage = new IndexPagePresenter();
-
-
-
-
-

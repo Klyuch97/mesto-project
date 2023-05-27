@@ -3,8 +3,8 @@ export default class FormValidator {
     this._settings = settings;
     this._form = form;
 
-    this._inputLists = Array.from(form.querySelectorAll(this._settings.formNameText));
-    this._submitButton = form.querySelector(this._settings.formButton);;
+    this._inputLists = Array.from(form.querySelectorAll(this._settings.formNameTextSelector));
+    this._submitButton = form.querySelector(this._settings.formButtonSelector);
 
     this._setEventListeners();
   }
@@ -14,15 +14,15 @@ export default class FormValidator {
 
     const formError = this._form.querySelector(`.${inputElement.id}-error`);
     formError.textContent = errorMessage;
-    inputElement.classList.add(this._settings.formNameTextTypeError);
-    formError.classList.add(this._settings.formInputErrorActive);
+    inputElement.classList.add(this._settings.formNameTextTypeErrorSelector);
+    formError.classList.add(this._settings.formInputErrorActiveSelector);
   }
   //удалить класс ошибки
   _hideInputError(inputElement) {
     const formError = this._form.querySelector(`.${inputElement.id}-error`);
     formError.textContent = '';
-    inputElement.classList.remove(this._settings.formNameTextTypeError);
-    formError.classList.remove(this._settings.formInputErrorActive);
+    inputElement.classList.remove(this._settings.formNameTextTypeErrorSelector);
+    formError.classList.remove(this._settings.formInputErrorActiveSelector);
   }
 
   _isValid(inputElement) {
@@ -46,11 +46,11 @@ export default class FormValidator {
     if (this._hasInvalidInput(this._inputLists)) {
       // сделай кнопку неактивной
       this._submitButton.disabled = true;
-      this._submitButton.classList.add(this._settings.formButtonDisabled);
+      this._submitButton.classList.add(this._settings.formButtonDisabledSelector);
     } else {
       // иначе сделай кнопку активной
       this._submitButton.disabled = false;
-      this._submitButton.classList.remove(this._settings.formButtonDisabled);
+      this._submitButton.classList.remove(this._settings.formButtonDisabledSelector);
     }
   }
   _setEventListeners() {
@@ -70,6 +70,6 @@ export default class FormValidator {
   }
 // отключить кнопку сабмит
   resetButton(){
-    this._submitButton.classList.add(this._settings.formButtonDisabled);
+    this._submitButton.classList.add(this._settings.formButtonDisabledSelector);
   }
 }
