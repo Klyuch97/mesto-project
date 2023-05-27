@@ -1,11 +1,11 @@
 'use strict';
 
-import { Api } from './api.js';
-import { ValidationService } from './Validation/ValidationService.js';
-import { UserInfo } from './UserInfo.js';
-import { apiConfig, validatorSettings, userInfoSettings, cardSectionConfig } from './constants.js';
-import { CardSection } from "./Sections/CardSection/CardSection.js";
-import { PopupManager } from './Popups/PopupManager.js';
+import { Api } from '../api.js';
+import { ValidationService } from '../Validation/ValidationService.js';
+import { UserInfo } from '../UserInfo.js';
+import { apiConfig, validatorSettings, userInfoSettings, cardSectionConfig } from '../utils/constants.js';
+import { CardSection } from "../Sections/CardSection/CardSection.js";
+import { PopupManager } from '../Popups/PopupManager.js';
 
 
 class NodeFactory {

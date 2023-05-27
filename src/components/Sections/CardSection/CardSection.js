@@ -1,6 +1,6 @@
 'use strict';
 import { Card } from './Cards/Card.js';
-import { webApi, factory, popupManagerSingleton as popupManager, profileInfo } from '../../utils.js';
+import { webApi, factory, popupManagerSingleton as popupManager, profileInfo } from '../../utils/utils.js';
 import { Section } from '../Section.js';
 
 const _viewModel = new Map();//TODO: Дальше нужно вынести в отдельный класс, сделать базовую вм, унаследовать от базы вм для карт,
@@ -16,7 +16,7 @@ const viewCardFunc = (data) => { popupManager.getPopupBySelector(_cardViewSelect
 
 //TODO: синглтон тут может начать мешать, если появится несколько вьюх с карточками
 export const CardSection = {
-  initialize: (view, cards) => InitializeCardSection(view, cards),
+  initialize: (view, cards) => initializeCardSection(view, cards),
   createCard: (cardData) => addCard(cardData),
   remove: (cardId) => removeCard(cardId),
   setConfig: (config)=> setCardSectionConfig(config)
@@ -28,7 +28,7 @@ function setCardSectionConfig(config) {
   _cardTemplate = config.cardTemplate;
 }
 
-function InitializeCardSection(view, cards) {
+function initializeCardSection(view, cards) {
   baseSection = new Section({ cards, addCard }, view)
 
   popupManager.initializePopup(_deleteConfirmationSelector, (evt) => _handleRemoveSubmit(evt))

@@ -1,6 +1,6 @@
 'use strict';
 import Popup from "./Popup.js";
-import { formsValidationService } from '../utils.js';
+import { formsValidationService } from '../utils/utils.js';
 
 export class PopupWithForm extends Popup {
   constructor(popupSelector, submitFunc) {
@@ -8,7 +8,7 @@ export class PopupWithForm extends Popup {
     this._submitFormFunc = submitFunc;
     this._form = this._popup.querySelector(".form");
     this._buttonSave = this._form.querySelector(".form__button");
-    this._input = Array.from(this._form.querySelectorAll(".form__name-text"));
+    this._inputs = Array.from(this._form.querySelectorAll(".form__name-text"));
     this._defaultSubmitText = this._buttonSave.textContent;
     formsValidationService.handleForm(this._form);
     this.setEventListeners();
@@ -17,7 +17,7 @@ export class PopupWithForm extends Popup {
   //получить значения инпута
   _getInputValues() {
     const result = {};
-    this._input.forEach((input) => {
+    this._inputs.forEach((input) => {
       result[input.name] = input.value;
     });
     return result;
@@ -26,7 +26,7 @@ export class PopupWithForm extends Popup {
   //наполнить инпут данными
   setInputValues(data) {
     if (data) {
-      this._input.forEach((input) => {
+      this._inputs.forEach((input) => {
         input.value = data[input.name];
       })
     }
@@ -55,7 +55,6 @@ export class PopupWithForm extends Popup {
   open(data) {
     this.setInputValues(data);
     super.open();
-    this.renderLoading(false);
     formsValidationService.prevalidateForm(this._form)
   }
 

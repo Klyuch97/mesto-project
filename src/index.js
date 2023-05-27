@@ -1,5 +1,6 @@
 import '../src/index.css';
-import { webApi, profileInfo, cardSectionSingleton, formsValidationService, popupManagerSingleton as popupManager } from './components/utils.js';
+import { PopupWithForm } from './components/Popups/PopupWithForm';
+import { webApi, profileInfo, cardSectionSingleton, formsValidationService, popupManagerSingleton as popupManager } from './components/utils/utils.js';
 
 class IndexPagePresenter {
   constructor() {

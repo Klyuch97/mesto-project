@@ -1,6 +1,6 @@
 'use strict';
-import { webApi, factory, popupManager, profileInfo } from '../../../utils.js';
-import { cardConfig } from '../../../constants.js';
+import { webApi, factory, popupManager, profileInfo } from '../../../utils/utils.js';
+import { cardConfig } from '../../../utils/constants.js';
 
 export class Card {
   constructor(cardTemplate, cardData, removeCardFunc, cardViewFunc) {
