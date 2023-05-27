@@ -8,7 +8,7 @@ import { CardSection } from "./Sections/CardSection/CardSection.js";
 import { PopupManager } from './Popups/PopupManager.js';
 
 
-class nodeFactory {
+class NodeFactory {
   constructor() { }
   createNodeFromTemplate(id) {
     return this._getTemplateByID(id).firstElementChild.cloneNode(true);
@@ -25,4 +25,4 @@ CardSection.setConfig(cardSectionConfig);
 export const profileInfo = new UserInfo(userInfoSettings);
 export const formsValidationService = new ValidationService(validatorSettings);
 export const webApi = new Api(apiConfig);
-export const factory = new nodeFactory();
+export const factory = new NodeFactory();
