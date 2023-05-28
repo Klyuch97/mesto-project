@@ -1,6 +1,7 @@
 'use strict';
 import { PopupWithImage } from "./PopupWithImage.js";
 import { PopupWithForm } from "./PopupWithForm.js";
+import { formsValidationService } from '../../index.js';
 
 const _popupCollection = new Map();
 
@@ -15,7 +16,7 @@ function initializePopup(popupSelector, submitFunc) {
   if (popupNode.classList.contains('popup_type_edit')) {
     if (!submitFunc)
       throw new Error(`Cant init PopupWithForm without submit function!`);
-    nodePresenter = new PopupWithForm(popupSelector, submitFunc);
+    nodePresenter = new PopupWithForm(popupSelector, submitFunc,formsValidationService);
   }
   else if (popupNode.classList.contains('popup_type_view')) {
 

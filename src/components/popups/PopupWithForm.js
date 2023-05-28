@@ -1,9 +1,8 @@
 'use strict';
 import Popup from "./Popup.js";
-import { formsValidationService } from '../../index.js';
 
 export class PopupWithForm extends Popup {
-  constructor(popupSelector, submitFunc) {
+  constructor(popupSelector, submitFunc, validationService) {
     super(popupSelector);
     this._submitFormFunc = submitFunc;
     this._form = this._popup.querySelector(".form");
@@ -11,6 +10,7 @@ export class PopupWithForm extends Popup {
     this._inputs = Array.from(this._form.querySelectorAll(".form__name-text"));
     this._defaultSubmitText = this._buttonSave.textContent;
     this.setEventListeners();
+    this._formsValidationService = validationService;
   }
 
   //получить значения инпута
@@ -54,7 +54,7 @@ export class PopupWithForm extends Popup {
   open(data) {
     this.setInputValues(data);
     super.open();
-    formsValidationService.prevalidateForm(this._form)
+    this._formsValidationService.prevalidateForm(this._form)
   }
 
   //функция сброса формы и закрытия попапа
