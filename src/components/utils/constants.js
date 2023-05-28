@@ -39,10 +39,3 @@ export const indexPageConfig = {
   buttonAddCardSelector: '.profile__button',
   buttonEditAvatarSelector: '.profile__edit-avatar-button'
 }
-
-const _buttonOpenEditProfilePopup = document.querySelector('.profile__info-cell-button');
-
-const _buttonAddCard = document.querySelector('.profile__button');
-const _buttonEditAvatar = document.querySelector('.profile__edit-avatar-button');
-const _buttonEditAvatarSave = document.querySelector('.form__button-edit-avatar');
-const _elementList = document.querySelector('.elements');

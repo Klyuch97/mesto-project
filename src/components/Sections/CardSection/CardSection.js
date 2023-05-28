@@ -3,8 +3,7 @@ import { Card } from './Cards/Card.js';
 import { webApi, factory, popupManagerSingleton as popupManager, profileInfo } from '../../../index.js';
 import { Section } from '../Section.js';
 
-const _viewModel = new Map();//TODO: Дальше нужно вынести в отдельный класс, сделать базовую вм, унаследовать от базы вм для карт,
-  //но сейчас пока тут только коллекция, так что пока хз. Сделать задел для иока кароч
+const _viewModel = new Map();
 let baseSection = null;
 let _removeId = null;
 
@@ -14,7 +13,6 @@ let _cardTemplate = null;
 
 const viewCardFunc = (data) => { popupManager.getPopupBySelector(_cardViewSelector).open(data); }
 
-//TODO: синглтон тут может начать мешать, если появится несколько вьюх с карточками
 export const CardSection = {
   initialize: (view, cards) => initializeCardSection(view, cards),
   createCard: (cardData) => addCard(cardData),
