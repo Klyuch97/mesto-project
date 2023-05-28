@@ -1,21 +1,24 @@
 'use strict';
-import { webApi, factory, popupManager, profileInfo } from '../../../../index.js';
 import { cardConfig } from '../../../utils/constants.js';
 
+
+
 export class Card {
-  constructor(cardTemplate, cardData, removeCardFunc, cardViewFunc) {
-    this._userId = profileInfo.getId();
-    this._cardViewModel = cardData;
-    this._cardView = factory.createNodeFromTemplate(cardTemplate);
+  constructor(cardInitialConfig){
+    this._userId = cardInitialConfig.utils.profile.getId();
+    this._cardViewModel = cardInitialConfig.cardData;
+    this._cardView = cardInitialConfig.utils.nodeFactory.createNodeFromTemplate(cardInitialConfig.cardTemplate);
     this._canBeDeleted = this._cardViewModel.owner._id == this._userId;
-    this._removeCardFunc = removeCardFunc;
-    this._cardViewFunc = cardViewFunc;
+    this._removeCardFunc = cardInitialConfig.functions.removeCardFunc;
+    this._cardViewFunc = cardInitialConfig.functions.cardViewFunc;
 
     this._likeButton = this._cardView.querySelector(cardConfig.likeButtonSelector);
     this._likeCounter = this._cardView.querySelector(cardConfig.likeCounterSelector);
     this._image = this._cardView.querySelector(cardConfig.imageSelector);
     this._cardNameText = this._cardView.querySelector(cardConfig.cardNameTextSelector);
     this._removeButton = this._cardView.querySelector(cardConfig.removeButtonSelector);
+
+    this._webApi = cardInitialConfig.utils.api;
 
     this._initializeCardView();
   }
@@ -47,7 +50,7 @@ export class Card {
       return profile._id == this._userId
     })
     if (isLiked) {
-      webApi.deleteCardLike(this._cardViewModel._id)
+      this._webApi.deleteCardLike(this._cardViewModel._id)
         .then(res => {
           this._cardViewModel.likes = res.likes
         })
@@ -55,7 +58,7 @@ export class Card {
         .catch(err => console.log(`Ошибка: ${err}`));
     }
     else {
-      webApi.setCardLike(this._cardViewModel._id)
+      this._webApi.setCardLike(this._cardViewModel._id)
         .then(res => {
           this._cardViewModel.likes = res.likes
         })

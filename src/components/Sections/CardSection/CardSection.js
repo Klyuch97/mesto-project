@@ -40,7 +40,14 @@ function addCard(cardData) {
   if (cardData && !_viewModel.has(cardData._id)) {
     const canBeDeleted = cardData.owner._id == profileInfo.getId();
 
-    const newCard = new Card(_cardTemplate, cardData, () => _handleRemoveButtonClick(cardData._id), viewCardFunc, profileInfo.getId())
+    let cardInitialConfig = {
+      cardTemplate: _cardTemplate,
+      cardData: cardData,
+      functions: { removeCardFunc: () => _handleRemoveButtonClick(cardData._id), cardViewFunc: viewCardFunc },
+      utils: { api: webApi, nodeFactory: factory, popupManager: popupManager, profile: profileInfo }
+    }
+
+    const newCard = new Card(cardInitialConfig);
     _viewModel.set(cardData._id, newCard);
     baseSection.addItem(newCard.getCardView());
   }
