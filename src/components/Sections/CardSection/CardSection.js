@@ -65,5 +65,8 @@ function _handleRemoveButtonClick(cardId) {
 
 function _handleRemoveSubmit(data) {
   removeCard(_removeId)
-    .then(() => { popupManager.getPopupBySelector(_deleteConfirmationSelector).close(); });
+    .then(() => { popupManager.getPopupBySelector(_deleteConfirmationSelector).close(); })
+    .finally(() => {
+      popupManager.getPopupBySelector(_deleteConfirmationSelector).renderLoading(false);
+    });
 }
