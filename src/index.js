@@ -1,13 +1,13 @@
 import '../src/index.css';
 
-import { PopupWithForm } from './components/Popups/PopupWithForm';
-import { Api } from './components/api.js';
+import { PopupWithForm } from './components/Popups/PopupWithForm.js';
+import { Api } from './components/Api.js';
 import { ValidationService } from './components/Validation/ValidationService.js';
 import { UserInfo } from './components/UserInfo.js';
-import { apiConfig, validatorSettings, userInfoSettings, cardSectionConfig, indexPageConfig } from './components/utils/constants.js';
+import { apiConfig, validatorSettings, userInfoSettings, cardSectionConfig, indexPageConfig } from './components/Utils/Constants.js';
 import { CardSection } from "./components/Sections/CardSection/CardSection.js";
 import { PopupManager } from './components/Popups/PopupManager.js';
-import { NodeFactory } from './components/utils/utils.js';
+import { NodeFactory } from './components/Utils/Utils.js';
 
 
 export const popupManagerSingleton = PopupManager;

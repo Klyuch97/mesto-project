@@ -1,5 +1,5 @@
 'use strict';
-import { cardConfig } from '../../../utils/constants.js';
+import { cardConfig } from '../../../Utils/Constants.js';
 
 
 
