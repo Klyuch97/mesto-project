@@ -5,6 +5,7 @@
     height: 19px;
     border: none;
     background-color: transparent;
+    font-size: 0%;
 }
 
 .element__button:hover {
